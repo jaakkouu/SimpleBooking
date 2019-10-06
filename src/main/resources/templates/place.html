@@ -8,7 +8,7 @@
         <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" type="text/css">
         <script th:src="@{/js/Bootstrap/4.3.1/bootstrap.min.js}"></script>     
         <script th:src="@{/js/main.js}"></script>        
-        <title>SimpleBooking :: Booking Made Easy</title>
+        <title th:text="${place}" />
     </head>
     <body>
 
@@ -21,15 +21,15 @@
 
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 class="display-4">SimpleBooking</h1>
-                <p class="lead">Book a place really easily!</p>
+                <h1 class="display-4" th:text="${place}" />
+                <p class="lead">Small description of the place</p>
             </div>
         </div>
 
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    This is the front page content area
+                    Place information
                 </div>
             </div>
         </div>

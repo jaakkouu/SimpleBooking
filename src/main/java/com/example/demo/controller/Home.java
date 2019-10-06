@@ -11,6 +11,11 @@ public class Home {
         return "login";
     }
 
+    @GetMapping("/register")
+    public String registerPage() {
+        return "register";
+    }
+
     @GetMapping("/")
     public String indexPage() {
         return "index";
