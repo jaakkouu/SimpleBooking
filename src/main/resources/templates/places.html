@@ -11,21 +11,7 @@
         <title>SimpleBooking :: My Places</title>
     </head>
     <body>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">SimpleBooking</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </nav>
-
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-4">My Places</h1>
-                <p class="lead">List of my active places</p>
-            </div>
-        </div>
-
+        <div th:insert="fragments/header" th:with="title='My Places', subtitle='List of places'" />
         <div class="container-fluid">
             <div class="container">
                 <div class="row">

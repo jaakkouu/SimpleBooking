@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Profile {
 
     @GetMapping("/profile")
-    public String profilePage() {
+    public String view() {
         return "profile";
     }
 

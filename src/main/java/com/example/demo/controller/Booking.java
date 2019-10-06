@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Booking {
 
     @GetMapping("/bookings")
-    public String bookingsPage() {
+    public String view() {
         return "bookings";
     }
 
