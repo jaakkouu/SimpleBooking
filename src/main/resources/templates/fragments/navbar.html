@@ -19,9 +19,6 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/bookings}">My Bookings</a>
                 </li>
-                <span class="nav-item">
-                    <a class="nav-link" th:href="@{/logout}">Sign Out</a>
-                </span>
             </th:block>
         </ul>
         <th:block th:if="${#authorization.expression('!isAuthenticated()')}">
@@ -31,7 +28,14 @@
             <span class="nav-item">
                 <a class="btn btn-primary" th:href="@{/login}" role="button">Sign In</a>
             </span>
-            
         </th:block>
+
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <span class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Sign Out</a>
+            </span>
+        </th:block>
+
+        
     </div>
 </nav>
