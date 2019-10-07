@@ -1,0 +1,23 @@
+.table thead tr {
+    border-bottom: 2px solid #eeeeee
+}
+
+.table tbody tr {
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee
+}
+
+.table tbody tr:first-of-type {
+    border-top: 0
+}
+
+.table tbody tr:last-of-type {
+    border-bottom: 0
+}
+
+.blockquote.lightgrey {
+    background-color: #f5f5f5;
+    border: 1px solid #ececec;
+    border-radius: 5px;
+    padding: 13px 18px
+}

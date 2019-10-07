@@ -15,7 +15,36 @@
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    List of Places
+                    <a class="btn btn-outline-primary" th:href="@{/place/add}" role="button"><i class="fa fa-plus"></i> List a new place</a>
+                </div>
+                <div class="row">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Active RSV</th>
+                                <th scope="col">Total RSV</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="place,iter : ${places}">
+                                <th scope="row" th:text="${iter.index}" />
+                                <td th:text="${place.getName()}" />
+                                <td th:text="${place.getAddress()}" />
+                                <td>0</td>
+                                <td>0</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                        <a class="btn btn-outline-primary" th:href="@{/place/edit}" role="button"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-danger" th:href="@{/place/remove}" role="button"><i class="fa fa-trash"></i> Remove</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

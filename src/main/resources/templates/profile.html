@@ -14,8 +14,82 @@
         <div th:insert="fragments/header" th:with="title='Your profile', subtitle='Edit your profile here'" />
         <div class="container-fluid">
             <div class="container">
+                <div class="row mb-4">
+                    <div class="col">
+                        <h4>Company</h4>
+                        <form action="#" th:action="@{/profile/company}" method="post">
+                            <div class="form-group">
+                                <label for="companyName" readonly>Name</label>
+                                <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Enter your company name">
+                            </div>
+                            <div class="form-group">
+                                <label for="companyAddress" readonly>Address</label>
+                                <input type="text" class="form-control" name="companyAddress" id="companyAddress" placeholder="Enter your company address">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save company details</button>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <blockquote class="blockquote lightgrey">
+                            <p class="mb-2">Please remember to fill out all details. Your customers will appreciate this!</p>
+                            <p class="mb-2">We are using this information to secure your account and enhance your and your customers experience.</p>
+                            <a href="#">Read More...</a>
+                        </blockquote>
+                    </div>
+                </div>
                 <div class="row">
-                    Profile options
+                    <div class="col">
+                        <h4>Billing</h4>
+                        <form action="#" th:action="@{/profile/billing}" method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="creditCardNumber" readonly>Credit Card Number</label>
+                                        <input type="text" class="form-control" name="creditCardNumber" id="creditCardNumber" placeholder="Enter your credit card number">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="cvs" readonly>CVS</label>
+                                        <input type="password" class="form-control" name="cvs" id="cvs" placeholder="Enter your cvs">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save billing details</button>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <h4>Contact</h4>
+                        <form action="#" th:action="@{/profile/contact}" method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="firstname" readonly>Firstname</label>
+                                        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Enter your firstname">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="lastname" readonly>Lastname</label>
+                                        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Enter your lastname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter your email address">
+                            </div>
+                            <div class="form-group">
+                                <label for="address" readonly>Address</label>
+                                <input type="text" class="form-control" name="address" id="address" placeholder="Enter your address">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" readonly>Phone number</label>
+                                <input type="tel" class="form-control" name="phone" id="phone" placeholder="Enter your phone number">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save contact details</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
