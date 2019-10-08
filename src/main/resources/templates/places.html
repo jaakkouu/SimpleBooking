@@ -14,7 +14,7 @@
         <div th:insert="fragments/header" th:with="title='My Places', subtitle='List of places'" />
         <div class="container-fluid">
             <div class="container">
-                <div class="row">
+                <div class="row invisible">
                     <a class="btn btn-outline-primary" th:href="@{/place/add}" role="button"><i class="fa fa-plus"></i> List a new place</a>
                 </div>
                 <div class="row">
@@ -48,6 +48,5 @@
                 </div>
             </div>
         </div>
-
     </body>
 </html>

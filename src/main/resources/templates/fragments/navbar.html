@@ -8,17 +8,18 @@
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
             </li>
-      
             <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/profile}">Profile</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/places}">My Places</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/bookings}">My Bookings</a>
                 </li>
+                <th:block sec:authorize="hasRole('ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users}">Users</a>
+                    </li>
+                </th:block>
             </th:block>
         </ul>
         <th:block th:if="${#authorization.expression('!isAuthenticated()')}">
@@ -29,13 +30,15 @@
                 <a class="btn btn-primary" th:href="@{/login}" role="button">Sign In</a>
             </span>
         </th:block>
-
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <span class="nav-item mr-3">
+                <a class="btn btn-outline-secondary" th:href="@{/profile}"><span sec:authentication="name"></span></a>
+            </span>
             <span class="nav-item">
-                <a class="nav-link" th:href="@{/logout}">Sign Out</a>
+                <form th:action="@{/logout}" method="post">
+                    <input class="btn btn-primary" type="submit" value="Sign Out">
+                </form>
             </span>
         </th:block>
-
-        
     </div>
 </nav>

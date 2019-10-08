@@ -14,6 +14,9 @@ public class Place {
     @Column(name="id", nullable = false, updatable = false)
     private Long id;
 
+    @Column(name="userId", nullable = false, updatable = false)
+    private Long userId;
+
     @Column(name="name", nullable = false, unique = true)
     private String name;
     
@@ -30,8 +33,9 @@ public class Place {
 
     }
 
-    public Place(String name, String address, String largeDescription, String smallDescription){
+    public Place(long userId, String name, String address, String largeDescription, String smallDescription){
         super();
+        setUserId(userId);
         setName(name);
         setAddress(address);
         setLargeDescription(largeDescription);
@@ -40,6 +44,14 @@ public class Place {
 
     public Long getId() {
         return id;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getUserId() {
+        return userId;
     }
 
     public void setId(Long id) {

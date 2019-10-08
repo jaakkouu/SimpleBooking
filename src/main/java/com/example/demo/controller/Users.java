@@ -1,22 +1,24 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.demo.service.IUsersService;
+
+
 @Controller
-public class Profile {
+public class Users {
 
     @Autowired
-    private IUserService userService;
+    private IUsersService usersService;
 
-    @GetMapping("/profile")
+    @GetMapping("/users")
     public String view(Model model) {
-        model.addAttribute("user", userService.getUserByUsername("admin"));
-        return "profile";
+        model.addAttribute("users", usersService.getUsers());
+        return "users";
     }
 
 }

@@ -1,3 +1,7 @@
+body {
+    overflow-y: scroll
+}
+
 .table thead tr {
     border-bottom: 2px solid #eeeeee
 }
@@ -21,3 +25,4 @@
     border-radius: 5px;
     padding: 13px 18px
 }
+

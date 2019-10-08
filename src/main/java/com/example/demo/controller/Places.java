@@ -1,24 +1,29 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.demo.model.Place;
+import com.example.demo.model.User;
+import com.example.demo.service.IPlaceService;
+import com.example.demo.service.IUserService;
 
 @Controller
 public class Places {
 
+    @Autowired
+    private IPlaceService placeService;
+
+    @Autowired
+    private IUserService userService;
+
     @GetMapping("/places")
-    public String view(Model model) {
-        List<Place> places = new ArrayList<Place>();
-        places.add(new Place("Sea Food Restaurant", "Random Road 32", "Lorem ipsum dolor sit amet", "Lorem ipsum"));
-        places.add(new Place("Tower Restaraunt", "Random Road 16", "Lorem ipsum dolor sit amet", "Lorem ipsum"));
-        places.add(new Place("Downtown Chinese", "Random Dead End 79", "Lorem ipsum dolor sit amet", "Lorem ipsum"));
-        model.addAttribute("places", places);
+    public String view(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        User user = userService.getUserByUsername(currentUser.getUsername());
+        model.addAttribute("places", placeService.getPlacesByUserId(user.getId()));
         return "places";
     }
 

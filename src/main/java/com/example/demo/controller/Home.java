@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
+import com.example.demo.service.IPlaceService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,15 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class Home {
 
+    @Autowired
+    private IPlaceService placeService;
+
     @GetMapping("/")
     public String view(Model model) {
-        ArrayList<String> places = new ArrayList<String>();
-        places.add("Dinner at Sea Restaurant");
-        places.add("Benji Jump experience");
-        places.add("Private Dolphin Safari");
-        places.add("Breakfast at Tower");
-        places.add("Aqua Vacation at Bali");
-        model.addAttribute("places", places);
+        model.addAttribute("places", placeService.getPlaces());
         return "index";
     }
 

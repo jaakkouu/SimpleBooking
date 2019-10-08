@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" th:href="@{/css/Bootstrap/4.3.1/bootstrap.min.css}" type="text/css">
+        <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+        <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" type="text/css">
+        <script th:src="@{/js/Bootstrap/4.3.1/bootstrap.min.js}"></script>     
+        <script th:src="@{/js/main.js}"></script>        
+        <title>SimpleBooking :: Users</title>
+    </head>
+    <body>
+        <div th:insert="fragments/header" th:with="title='Users', subtitle='List of users'" />
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user,iter : ${users}">
+                                <th scope="row" th:text="${iter.index}" />
+                                <td th:text="${user.getUsername()}" />
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
