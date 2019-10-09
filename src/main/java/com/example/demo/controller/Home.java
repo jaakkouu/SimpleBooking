@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.IPlaceService;
+import com.example.demo.dao.PlaceRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Home {
 
     @Autowired
-    private IPlaceService placeService;
+    private PlaceRepository placeRepository;
 
     @GetMapping("/")
     public String view(Model model) {
-        model.addAttribute("places", placeService.getPlaces());
+        model.addAttribute("places", placeRepository.findAll());
         return "index";
     }
 

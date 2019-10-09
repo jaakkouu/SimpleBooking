@@ -32,13 +32,14 @@
                         <tbody>
                             <tr th:each="place,iter : ${places}">
                                 <th scope="row" th:text="${iter.index}" />
-                                <td th:text="${place.getName()}" />
-                                <td th:text="${place.getAddress()}" />
-                                <td>0</td>
+                                <td th:text="${place.name}" />
+                                <td th:text="${place.address}" />
+                                <td></td>
                                 <td>0</td>
                                 <td>
                                     <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                        <a class="btn btn-outline-primary" th:href="@{/place/edit}" role="button"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" th:href="@{/__${place.placeUrl.url}__}" role="button"><i class="fa fa-globe"></i> View</a>
+                                        <a class="btn btn-warning" th:href="@{/place/edit}" role="button"><i class="fa fa-edit"></i> Edit</a>
                                         <a class="btn btn-danger" th:href="@{/place/remove}" role="button"><i class="fa fa-trash"></i> Remove</a>
                                     </div>
                                 </td>
@@ -48,5 +49,4 @@
                 </div>
             </div>
         </div>
-    </body>
-</html>
+        <div th:insert="fragments/footer" />

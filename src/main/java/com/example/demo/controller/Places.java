@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dao.PlaceRepository;
+import com.example.demo.dao.UserRepository;
+import com.example.demo.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,23 +11,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.demo.model.User;
-import com.example.demo.service.IPlaceService;
-import com.example.demo.service.IUserService;
 
 @Controller
 public class Places {
 
     @Autowired
-    private IPlaceService placeService;
+    private UserRepository userRepository;
 
     @Autowired
-    private IUserService userService;
+    private PlaceRepository placeRepository;
 
     @GetMapping("/places")
     public String view(Model model, @AuthenticationPrincipal UserDetails currentUser) {
-        User user = userService.getUserByUsername(currentUser.getUsername());
-        model.addAttribute("places", placeService.getPlacesByUserId(user.getId()));
+        User user = userRepository.getUserByUsername(currentUser.getUsername());
+        model.addAttribute("places", placeRepository.getPlacesByUserId(user.getId()));
         return "places";
     }
 

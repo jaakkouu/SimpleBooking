@@ -6,18 +6,42 @@
         <link rel="stylesheet" th:href="@{/css/Bootstrap/4.3.1/bootstrap.min.css}" type="text/css">
         <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
         <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" type="text/css">
+        <link rel="stylesheet" th:href="@{/css/datepicker.min.css}" type="text/css">
         <script th:src="@{/js/Bootstrap/4.3.1/bootstrap.min.js}"></script>     
-        <script th:src="@{/js/main.js}"></script>        
-        <title th:text="${place}" />
+        <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+        <script th:src="@{/js/main.js}"></script>  
+        <title th:text="${place.name}" />
     </head>
-    <body>
-        <div th:insert="fragments/header" th:with="title='${place}', subtitle='Small description of the place'" />
+    <body th:object="${place}">
+        <div th:insert="fragments/header" th:with="title='__*{name}__', subtitle='__*{smallDescription}__'" />
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    Place information
+                    <div class="col">
+                        <p th:text="*{largeDescription}"/>
+                    </div>
+                    <div class="col">
+                        <h4>Book Now</h4>
+                        <form action="#" th:action="@{/profile/company}" method="post">
+                            <input type="hidden" th:value="*{id}">
+                            <div class="form-group">
+                                <label for="name">Your name</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumber">Your phone number</label>
+                                <input type="text" class="form-control" name="phoneNumbre" id="phoneNumber" placeholder="Enter your phone number">
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumber">Reserve a date</label>
+                                <div class="datepicker-here" data-language='en'></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Make a reservation</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+        <script th:src="@{/js/datepicker/datepicker.min.js}"></script>
+        <script th:src="@{/js/datepicker/i18n/datepicker.en.js}"></script>
+        <div th:insert="fragments/footer" />

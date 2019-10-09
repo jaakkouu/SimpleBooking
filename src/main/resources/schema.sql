@@ -39,10 +39,21 @@ CREATE TABLE `places` (
   FOREIGN KEY (userId) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-CREATE TABLE `placeUrls` (
+CREATE TABLE `place_urls` (
   id int(11) NOT NULL AUTO_INCREMENT,
   placeId int(11) NOT NULL,
-  placeUrl varchar(255) NOT NULL,
+  url varchar(255) NOT NULL,
+  createdAt date,
+  modifiedAt date,
+  removedAt date,
+  PRIMARY KEY (id),
+  FOREIGN KEY (placeId) REFERENCES places(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE `bookings` (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  placeId int(11) NOT NULL,
+  phonenumber varchar(255) NOT NULL,
   createdAt date,
   modifiedAt date,
   removedAt date,
@@ -65,8 +76,12 @@ insert into places (name, largeDescription, smallDescription, address, userId) V
 insert into places (name, largeDescription, smallDescription, address, userId) VALUES ('Tower Restaurant', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 16', 2);
 insert into places (name, largeDescription, smallDescription, address, userId) VALUES ('Downtown Chinese', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 79', 3);
 
-insert into placeUrls (placeId, placeUrl) VALUES (1, "sea-food-restaurant");
-insert into placeUrls (placeId, placeUrl) VALUES (2, "tower-restaurant");
-insert into placeUrls (placeId, placeUrl) VALUES (3, "downtown-chinese");
+insert into place_urls (placeId, url) VALUES (1, "sea-food-restaurant");
+insert into place_urls (placeId, url) VALUES (2, "tower-restaurant");
+insert into place_urls (placeId, url) VALUES (3, "downtown-chinese");
+
+insert into bookings (placeId, phonenumber) VALUES (1, "0403934577");
+insert into bookings (placeId, phonenumber) VALUES (2, "0501215281");
+insert into bookings (placeId, phonenumber) VALUES (2, "0505136369");
 
 SET FOREIGN_KEY_CHECKS=1;

@@ -1,69 +1,72 @@
 package com.example.demo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "places")
 public class Place {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable = false, updatable = false)
-    private Long id;
+    private int id;
 
-    @Column(name="userId", nullable = false, updatable = false)
-    private Long userId;
+    @Column(name="userid")
+    private int userId;
 
     @Column(name="name", nullable = false, unique = true)
     private String name;
-    
+
     @Column(name="address", nullable = false)
     private String address;
 
-    @Column(name="largeDescription", nullable = false)
+    @Column(name="largedescription", nullable = false)
     private String largeDescription;
 
-    @Column(name="smallDescription", nullable = false)
+    @Column(name="smalldescription", nullable = false)
     private String smallDescription;
-    
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private PlaceUrl placeUrl;
+
     public Place(){
 
     }
 
-    public Place(long userId, String name, String address, String largeDescription, String smallDescription){
-        super();
-        setUserId(userId);
-        setName(name);
-        setAddress(address);
-        setLargeDescription(largeDescription);
-        setSmallDescription(smallDescription);
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getName(){
+        return name;
     }
 
     public String getAddress() {
@@ -89,5 +92,13 @@ public class Place {
     public void setSmallDescription(String smallDescription) {
         this.smallDescription = smallDescription;
     }
-    
+
+    public PlaceUrl getPlaceUrl() {
+        return placeUrl;
+    }
+
+    public void setPlaceUrl(PlaceUrl placeUrl) {
+        this.placeUrl = placeUrl;
+    }
+
 }

@@ -45,13 +45,13 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="creditCardNumber" readonly>Credit Card Number</label>
+                                        <label for="creditCardNumber">Credit Card Number</label>
                                         <input type="text" class="form-control" name="creditCardNumber" id="creditCardNumber" placeholder="Enter your credit card number">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="cvs" readonly>CVS</label>
+                                        <label for="cvs">CVS</label>
                                         <input type="password" class="form-control" name="cvs" id="cvs" placeholder="Enter your cvs">
                                     </div>
                                 </div>
@@ -65,13 +65,13 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="firstname" readonly>Firstname</label>
+                                        <label for="firstname">Firstname</label>
                                         <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Enter your firstname">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="lastname" readonly>Lastname</label>
+                                        <label for="lastname">Lastname</label>
                                         <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Enter your lastname">
                                     </div>
                                 </div>
@@ -81,11 +81,11 @@
                                 <input disabled th:value="${user.getEmail()}" type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter your email address">
                             </div>
                             <div class="form-group">
-                                <label for="address" readonly>Address</label>
+                                <label for="address">Address</label>
                                 <input type="text" class="form-control" name="address" id="address" placeholder="Enter your address">
                             </div>
                             <div class="form-group">
-                                <label for="phone" readonly>Phone number</label>
+                                <label for="phone">Phone number</label>
                                 <input type="tel" class="form-control" name="phone" id="phone" placeholder="Enter your phone number">
                             </div>
                             <button type="submit" class="btn btn-primary">Save contact details</button>
@@ -94,5 +94,4 @@
                 </div>
             </div>
         </div>
-    </body>
-</html>
+        <div th:insert="fragments/footer" />
