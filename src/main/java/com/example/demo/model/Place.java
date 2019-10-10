@@ -8,38 +8,43 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import java.util.List;
+
 @Entity
-@Table(name = "places")
+@Table(name="places")
 public class Place {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable = false, updatable = false)
+    @Column(name="id", nullable=false, updatable=false)
     private int id;
 
     @Column(name="userid")
     private int userId;
 
-    @Column(name="name", nullable = false, unique = true)
+    @Column(name="name", nullable=false, unique=true)
     private String name;
 
-    @Column(name="address", nullable = false)
+    @Column(name="address", nullable=false)
     private String address;
 
-    @Column(name="largedescription", nullable = false)
+    @Column(name="largedescription", nullable=false)
     private String largeDescription;
 
-    @Column(name="smalldescription", nullable = false)
+    @Column(name="smalldescription", nullable=false)
     private String smallDescription;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id")
     private PlaceUrl placeUrl;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="placeid")
+    private List<Booking> bookings;
 
     public Place(){
 
@@ -99,6 +104,14 @@ public class Place {
 
     public void setPlaceUrl(PlaceUrl placeUrl) {
         this.placeUrl = placeUrl;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
 }

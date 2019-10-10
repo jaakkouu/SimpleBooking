@@ -13,33 +13,40 @@
     <body>
         <div th:insert="fragments/header" th:with="title='My Bookings', subtitle='List of bookings'" />
         <div class="container-fluid">
-                <div class="container">
-                        <div class="row">
-                            <table class="table table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Address</th>
-                                        <th scope="col">Active RSV</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="place,iter : ${places}">
-                                        <th scope="row" th:text="${iter.index}" />
-                                        <td th:text="${place.getName()}" />
-                                        <td></td>
-                                        <td>0</td>
-                                        <td>
-                                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                                <a class="btn btn-outline-primary" th:href="@{/place/edit}" role="button"><i class="fa fa-edit"></i> Open Reservations</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            <div class="container">
+                <div class="row">
+                    <table class="table table-bordered mb-4" th:each="place : ${places}">
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <h5 class="m-0 float-left">
+                                        <span th:text="*{place.name}" /> at
+                                        <span th:text="*{place.address}" />
+                                    </h5>
+                                    <span class="float-right" th:text="'Number of Bookings: ' + ${#lists.size(place.bookings)}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="p-0">
+                                    <table class="table table-borderless table-striped m-0">
+                                        <thead>
+                                            <tr>
+                                                <th width="50%" scope="col">Phone Number</th>
+                                                <th width="50%" scope="col">Reservation Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="booking,iter : ${place.bookings}">
+                                                <td th:text="${booking.phoneNumber}" />
+                                                <td th:text="${booking.reservationDate}" />
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <div th:insert="fragments/footer" />

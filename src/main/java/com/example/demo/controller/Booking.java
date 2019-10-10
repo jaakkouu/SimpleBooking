@@ -1,6 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.dao.BookingRepository;
+import com.example.demo.dao.PlaceRepository;
+import com.example.demo.dao.UserRepository;
+import com.example.demo.model.User;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +17,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class Booking {
 
+    @Autowired
+    private BookingRepository bookingRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PlaceRepository placeRepository;
+
     @GetMapping("/bookings")
-    public String view(Model model) {
-        
-       
-        //model.addAttribute("places", places);
+    public String view(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        User user = userRepository.getUserByUsername(currentUser.getUsername());
+        model.addAttribute("places", placeRepository.getPlacesByUserId(user.getId()));
         return "bookings";
     }
 
