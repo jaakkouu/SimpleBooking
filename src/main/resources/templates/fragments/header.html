@@ -1,7 +1,15 @@
 <div th:insert="fragments/navbar" />
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4" th:text="${title}" />
-        <p class="lead" th:text="${subtitle}" />
+<th:block th:if="${backgroundImage != null}">
+    <div class="jumbotron jumbotron-fluid" th:style="|background-size: cover; background-position: center center; background-image: url(${backgroundImage})|">        
+        <div class="container">
+            <h1 class="display-4 text-white" style="text-shadow: 1px 1px rgba(0,0,0,0.4)" th:text="${title}" />
+            <p class="lead text-white" style="text-shadow: 1px 1px rgba(0,0,0,0.4)" th:text="${subtitle}" />
+</th:block>
+<th:block th:if="${backgroundImage == null}">
+    <div class="jumbotron jumbotron-fluid">    
+        <div class="container">
+            <h1 class="display-4" th:text="${title}" />
+            <p class="lead" th:text="${subtitle}" />    
+</th:block>
     </div>
 </div>

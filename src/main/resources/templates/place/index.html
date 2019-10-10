@@ -13,7 +13,7 @@
         <title th:text="${place.name}" />
     </head>
     <body th:object="${place}">
-        <div th:insert="fragments/header" th:with="title='__*{name}__', subtitle='__*{smallDescription}__'" />
+        <div th:insert="fragments/header" th:with="title='__*{name}__', subtitle='__*{smallDescription}__', backgroundImage='https://picsum.photos/600/249/?blur=1'" />
         <div class="container-fluid">
             <div class="container">
                 <div class="row">

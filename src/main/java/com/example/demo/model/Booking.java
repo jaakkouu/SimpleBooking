@@ -2,13 +2,9 @@ package com.example.demo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +18,9 @@ public class Booking {
 
     @Column(name="placeid", nullable=false)
     private int placeId;
+
+    @Column(name="name", nullable=false)
+    private String name;
 
     @Column(name="phonenumber", nullable=false)
     private String phoneNumber;
@@ -59,6 +58,14 @@ public class Booking {
 
     public void setReservationDate(String reservationDate) {
         this.reservationDate = reservationDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

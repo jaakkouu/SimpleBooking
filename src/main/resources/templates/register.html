@@ -15,19 +15,27 @@
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    <div class="messageBox error" th:if="${param.error}">Invalid username and password.</div>
-                </div>
-                <div class="row">
-                    <form action="#" th:action="@{/register}" method="post">
+                    <form action="#" th:action="@{/register}" th:object="${user}" method="post">
                         <div class="form-group">
-                                <label for="username">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter your email address">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" th:field="*{username}" aria-describedby="usernameHelp" placeholder="Enter your username">
+                            <small id="usernameHelp" class="form-text text-muted">Use this to sign in</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" th:field="*{email}" aria-describedby="emailHelp" placeholder="Enter your email address">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>                            
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
                         </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Enter your password again">
+                        </div>
                         <button type="submit" class="btn btn-primary">Sign Up</button>
+                        <a th:href="@{/login}" class="btn btn-link">Already have account?</a>
                     </form>
                 </div>
             </div>

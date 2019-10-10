@@ -20,7 +20,7 @@ public class Profile {
     
     @GetMapping("/profile")
     public String index(Model model, @AuthenticationPrincipal UserDetails currentUser) {
-        User user = userRepository.getUserByUsername(currentUser.getUsername());
+        User user = userRepository.findUserByUsername(currentUser.getUsername());
         model.addAttribute("user", user);
         return "profile";
     }

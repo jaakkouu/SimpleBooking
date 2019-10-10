@@ -15,10 +15,10 @@
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    <table class="table table-bordered mb-4" th:each="place : ${places}">
+                    <table class="table mb-4" th:each="place : ${places}">
                         <tbody>
-                            <tr>
-                                <td colspan="2">
+                            <tr class="border bg-light">
+                                <td colspan="2" class="border-top-0">
                                     <h5 class="m-0 float-left">
                                         <span th:text="*{place.name}" /> at
                                         <span th:text="*{place.address}" />
@@ -27,16 +27,18 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="p-0">
+                                <td colspan="2" class="p-0 border-top-0">
                                     <table class="table table-borderless table-striped m-0">
                                         <thead>
                                             <tr>
-                                                <th width="50%" scope="col">Phone Number</th>
-                                                <th width="50%" scope="col">Reservation Date</th>
+                                                <th scope="col">Name</th>
+                                                <th width="25%" scope="col">Phone Number</th>
+                                                <th width="25%" scope="col">Reservation Date</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr th:each="booking,iter : ${place.bookings}">
+                                                <td th:text="${booking.name}" />
                                                 <td th:text="${booking.phoneNumber}" />
                                                 <td th:text="${booking.reservationDate}" />
                                             </tr>

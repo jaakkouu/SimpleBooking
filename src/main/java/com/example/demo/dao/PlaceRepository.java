@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlaceRepository extends CrudRepository<Place, Long> {
     Place findByPlaceUrl_Url(String url);
-	List<Place> getPlacesByUserId(int userId);
+	List<Place> findPlacesByUserId(int userId);
 }
