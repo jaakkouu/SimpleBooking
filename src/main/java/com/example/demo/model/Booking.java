@@ -1,10 +1,13 @@
 package com.example.demo.model;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,10 +17,10 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable=false, updatable=false)
-    private int id;
+    private Long id;
 
-    @Column(name="placeid", nullable=false)
-    private int placeId;
+    @Column(name="placeId", nullable=false)
+    private Long placeId;
 
     @Column(name="name", nullable=false)
     private String name;
@@ -25,14 +28,17 @@ public class Booking {
     @Column(name="phonenumber", nullable=false)
     private String phoneNumber;
 
-    @Column(name="reservationdate", nullable=false)
-    private String reservationDate;
+    @Column(name="reservationDate", nullable=false)
+    private Date reservationDate;
 
-    public int getId() {
+    @Column(name="receiptNumber", nullable=false)
+    private String receiptNumber;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,19 +50,19 @@ public class Booking {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getPlaceId() {
+    public Long getPlaceId() {
         return placeId;
     }
 
-    public void setPlaceId(int placeId) {
+    public void setPlaceId(Long placeId) {
         this.placeId = placeId;
     }
 
-    public String getReservationDate() {
+    public Date getReservationDate() {
         return reservationDate;
     }
 
-    public void setReservationDate(String reservationDate) {
+    public void setReservationDate(Date reservationDate) {
         this.reservationDate = reservationDate;
     }
 
@@ -66,6 +72,14 @@ public class Booking {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getReceiptNumber() {
+        return receiptNumber;
+    }
+
+    public void setReceiptNumber(String receiptNumber) {
+        this.receiptNumber = receiptNumber;
     }
 
 }

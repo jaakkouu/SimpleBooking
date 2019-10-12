@@ -11,10 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
-
 @Controller
-public class Booking {
+public class PlacesController {
 
     @Autowired
     private UserRepository userRepository;
@@ -22,11 +20,11 @@ public class Booking {
     @Autowired
     private PlaceRepository placeRepository;
 
-    @GetMapping("/bookings")
+    @GetMapping("/places")
     public String view(Model model, @AuthenticationPrincipal UserDetails currentUser) {
         User user = userRepository.findUserByUsername(currentUser.getUsername());
         model.addAttribute("places", placeRepository.findPlacesByUserId(user.getId()));
-        return "bookings";
+        return "places";
     }
 
 }

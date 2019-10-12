@@ -10,31 +10,30 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "placeUrls")
+@Table(name="placeUrls")
 public class PlaceUrl {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
-    private int id;
+    @Column(name="id", nullable=false, updatable=false)
+    private Long id;
 
-    @Column(name = "placeid")
-    private int placeId;
+    @Column(name="placeId")
+    private Long placeId;
 
-    @Column(name = "url", nullable = false, updatable = true)
+    @Column(name="url", nullable=false, updatable=true)
     private String url;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "placeUrl")
+    @OneToOne(fetch=FetchType.LAZY, mappedBy="placeUrl")
     private Place place;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
-
 
     public Place getPlace() {
         return place;
@@ -44,11 +43,11 @@ public class PlaceUrl {
         this.place = place;
     }
 
-    public int getPlaceId() {
+    public Long getPlaceId() {
         return placeId;
     }
 
-    public void setPlaceId(int placeId) {
+    public void setPlaceId(Long placeId) {
         this.placeId = placeId;
     }
 

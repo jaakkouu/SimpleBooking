@@ -11,57 +11,58 @@ CREATE TABLE `users` (
   email varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   enabled int(11) DEFAULT 0,
-  createdAt datetime,
-  modifiedAt datetime,
-  removedAt datetime,
+  created_at datetime,
+  modified_at datetime,
+  removed_at datetime,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `authorities` (
   id int(11) NOT NULL AUTO_INCREMENT,
-  userId int(11) NOT NULL,
+  user_id int(11) NOT NULL,
   username varchar(255) NOT NULL,
   authority varchar(50) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (userId) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `places` (
   id int(11) NOT NULL AUTO_INCREMENT,
-  userId int(11) NOT NULL,
+  user_id int(11) NOT NULL,
   name varchar(255) NOT NULL,
   address varchar(255) NOT NULL,
-  largeDescription varchar(255) NOT NULL,
-  smallDescription varchar(50) NOT NULL,
-  createdAt datetime,
-  modifiedAt datetime,
-  removedAt datetime,
+  large_description varchar(255) NOT NULL,
+  small_description varchar(50) NOT NULL,
+  created_at datetime,
+  modified_at datetime,
+  removed_at datetime,
   PRIMARY KEY (id),
-  FOREIGN KEY (userId) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `place_urls` (
   id int(11) NOT NULL AUTO_INCREMENT,
-  placeId int(11) NOT NULL,
+  place_id int(11) NOT NULL,
   url varchar(255) NOT NULL,
-  createdAt datetime,
-  modifiedAt datetime,
-  removedAt datetime,
+  created_at datetime,
+  modified_at datetime,
+  removed_at datetime,
   PRIMARY KEY (id),
-  FOREIGN KEY (placeId) REFERENCES places(id)
+  FOREIGN KEY (place_id) REFERENCES places(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `bookings` (
   id int(11) NOT NULL AUTO_INCREMENT,
-  placeId int(11) NOT NULL,
+  place_id int(11) NOT NULL,
   name varchar(255) NOT NULL,
   phonenumber varchar(255) NOT NULL,
-  reservationDate date NOT NULL,
-  createdAt datetime,
-  modifiedAt datetime,
-  removedAt datetime,
+  reservation_date date NOT NULL,
+  receipt_number varchar(25) NOT NULL,
+  created_at datetime,
+  modified_at datetime,
+  removed_at datetime,
   PRIMARY KEY (id),
-  FOREIGN KEY (placeId) REFERENCES places(id)
+  FOREIGN KEY (place_id) REFERENCES places(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /* users */
@@ -69,26 +70,26 @@ insert into users (username, email, password, enabled) VALUES ('admin', 'admin@s
 insert into users (username, email, password, enabled) VALUES ('user', 'user@simplebooking.com', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 1);
 insert into users (username, email, password, enabled) VALUES ('user2', 'user2@simplebooking.com', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 1);
 insert into users (username, email, password, enabled) VALUES ('user3', 'user3@simplebooking.com', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 0);
-insert into users (username, email, password, enabled, removedAt) VALUES ('kovaluu', 'kovaluu@tulinpelleilee.fi', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 0, '2019-10-10 18:16:08');
+insert into users (username, email, password, enabled, removed_at) VALUES ('kovaluu', 'kovaluu@tulinpelleilee.fi', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 0, '2019-10-10 18:16:08');
 
 
 /* authorities */
-insert into authorities (userId, username, authority) VALUES (0, 'admin', 'ROLE_ADMIN');
-insert into authorities (userId, username, authority) VALUES (1, 'user', 'ROLE_USER');
-insert into authorities (userId, username, authority) VALUES (2, 'user2', 'ROLE_USER');
-insert into authorities (userId, username, authority) VALUES (3, 'user3', 'ROLE_USER');
+insert into authorities (user_id, username, authority) VALUES (0, 'admin', 'ROLE_ADMIN');
+insert into authorities (user_id, username, authority) VALUES (1, 'user', 'ROLE_USER');
+insert into authorities (user_id, username, authority) VALUES (2, 'user2', 'ROLE_USER');
+insert into authorities (user_id, username, authority) VALUES (3, 'user3', 'ROLE_USER');
 
 /* places */
-insert into places (name, largeDescription, smallDescription, address, userId) VALUES ('Sea Food Restaurant', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 32', 2);
-insert into places (name, largeDescription, smallDescription, address, userId) VALUES ('Tower Restaurant', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 16', 2);
-insert into places (name, largeDescription, smallDescription, address, userId) VALUES ('Downtown Chinese', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 79', 3);
+insert into places (name, large_description, small_description, address, user_id) VALUES ('Sea Hotel', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 32', 2);
+insert into places (name, large_description, small_description, address, user_id) VALUES ('Tower Hotel', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 16', 2);
+insert into places (name, large_description, small_description, address, user_id) VALUES ('Downtown Hotel', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 79', 3);
 
-insert into place_urls (placeId, url) VALUES (1, "sea-food-restaurant");
-insert into place_urls (placeId, url) VALUES (2, "tower-restaurant");
-insert into place_urls (placeId, url) VALUES (3, "downtown-chinese");
+insert into place_urls (place_id, url) VALUES (1, "sea-food-restaurant");
+insert into place_urls (place_id, url) VALUES (2, "tower-restaurant");
+insert into place_urls (place_id, url) VALUES (3, "downtown-chinese");
 
-insert into bookings (placeId, name, phonenumber, reservationDate) VALUES (1, "Matti Näsä", "0403934577", "2019-10-01 09:30:11");
-insert into bookings (placeId, name, phonenumber, reservationDate) VALUES (2, "Jaakko Parantainen", "0501215281", "2019-10-04 12:33:11");
-insert into bookings (placeId, name, phonenumber, reservationDate) VALUES (2, "Iso Pebe", "0505136369", "2019-10-11 14:21:23");
+insert into bookings (place_id, name, phonenumber, reservation_date, receipt_number) VALUES (1, "Matti Näsä", "0403934577", "2019-10-01", "5266894187637345544959825");
+insert into bookings (place_id, name, phonenumber, reservation_date, receipt_number) VALUES (2, "Jaakko Parantainen", "0501215281", "2019-10-04", "5466894787637345544959825");
+insert into bookings (place_id, name, phonenumber, reservation_date, receipt_number) VALUES (2, "Iso Pebe", "0505136369", "2019-10-11", "5236894787617345544959825");
 
 SET FOREIGN_KEY_CHECKS=1;

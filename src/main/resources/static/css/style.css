@@ -26,3 +26,7 @@ body {
     padding: 13px 18px
 }
 
+.form-group label sup {
+    color: red
+}
+

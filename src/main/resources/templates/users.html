@@ -57,7 +57,7 @@
                             </thead>
                             <tbody>
                                 <th:block th:each="user : ${users}">
-                                    <tr th:if="${user.enabled == 0}">
+                                    <tr th:if="${user.enabled == 0 && user.removedAt == null}">
                                         <td th:text="${user.username}" />
                                         <td></td>
                                     </tr>

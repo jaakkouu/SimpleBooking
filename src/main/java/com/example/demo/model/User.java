@@ -21,7 +21,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable=false, updatable=false)
-    private int id;
+    private Long id;
 
     @NotEmpty
     @Column(name="username", nullable=false, unique=true)
@@ -39,26 +39,26 @@ public class User {
     @Column(name="enabled", nullable=false)
     private int enabled;
     
-    @Column(name="createdat")
+    @Column(name="createdAt")
     @CreationTimestamp
     private LocalDateTime createdAt;
  
-    @Column(name="modifiedat")
+    @Column(name="modifiedAt")
     @UpdateTimestamp
     private LocalDateTime modifiedAt;
 
-    @Column(name="removedat")
+    @Column(name="removedAt")
     private LocalDateTime removedAt;
 
     public User(){
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

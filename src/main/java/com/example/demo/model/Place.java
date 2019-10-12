@@ -21,10 +21,10 @@ public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable=false, updatable=false)
-    private int id;
+    private Long id;
 
-    @Column(name="userid")
-    private int userId;
+    @Column(name="userId")
+    private Long userId;
 
     @Column(name="name", nullable=false, unique=true)
     private String name;
@@ -32,10 +32,10 @@ public class Place {
     @Column(name="address", nullable=false)
     private String address;
 
-    @Column(name="largedescription", nullable=false)
+    @Column(name="largeDescription", nullable=false)
     private String largeDescription;
 
-    @Column(name="smalldescription", nullable=false)
+    @Column(name="smallDescription", nullable=false)
     private String smallDescription;
 
     @OneToOne(fetch=FetchType.LAZY)
@@ -43,26 +43,26 @@ public class Place {
     private PlaceUrl placeUrl;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="placeid")
+    @JoinColumn(name="placeId")
     private List<Booking> bookings;
 
     public Place(){
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
