@@ -15,8 +15,20 @@
         <div th:insert="fragments/header" th:with="title='Add a New Place', subtitle='Fill out the details'" />
         <div class="container-fluid">
             <div class="container">
-                <form action="#" th:action="@{/add}" th:object="${place}" method="POST">
-                    <input type="text" th:field="*{id}">
+                
+                <th:block th:if="${obj != null}">
+                    <pre th:object="${obj}">
+                        <span th:text="'Place Name: ' + *{name}"/>
+                        <span th:text="'UserId: ' + *{userId}"/>
+                        <span th:text="'Address: ' + *{address}" />
+                        <th:block th:if="${obj.placeUrl != null}">
+                            <span th:text="*{'Place Url: ' + placeUrl.url}"/>
+                        </th:block>
+                    </pre>
+                </th:block>
+                
+                
+                <form action="#" th:action="@{/place/add}" th:object="${place}" method="POST">
                     <div class="row mb-4">
                         <div class="container">
                             <h4>Place Information</h4>

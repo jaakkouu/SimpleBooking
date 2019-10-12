@@ -4,14 +4,21 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,12 +45,11 @@ public class Place {
     @Column(name="smallDescription", nullable=false)
     private String smallDescription;
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id")
-    private PlaceUrl placeUrl;
+    @OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="place")
+	public PlaceUrl placeUrl;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="placeId")
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name="id")
     private List<Booking> bookings;
 
     public Place(){
@@ -110,8 +116,18 @@ public class Place {
         return bookings;
     }
 
-    public void setBookings(List<Booking> bookings) {
+    private void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public List<String> getBookedDates() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+        List<String> bookedDates = new ArrayList<String>();
+        for(Booking booking : bookings){
+            String reservationDate =  dateFormat.format(booking.getReservationDate());
+            bookedDates.add(reservationDate);
+        }
+        return bookedDates;
     }
 
 }

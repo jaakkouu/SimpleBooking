@@ -43,8 +43,7 @@ public class BookingController {
         booking.setReceiptNumber(receipt.getReceiptNumber());
         bookingRepository.save(booking);
         model.addAttribute("receipt", receipt);
-        return "redirect:/booking/success";
-        
+        return "/booking/success";
     }
 
 

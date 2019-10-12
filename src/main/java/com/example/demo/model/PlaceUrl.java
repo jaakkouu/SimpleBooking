@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -17,15 +18,17 @@ public class PlaceUrl {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable=false, updatable=false)
     private Long id;
+    
+    @Column(name="url", nullable=false, updatable=true, unique=true)
+	private String url;
 
-    @Column(name="placeId")
-    private Long placeId;
-
-    @Column(name="url", nullable=false, updatable=true)
-    private String url;
-
-    @OneToOne(fetch=FetchType.LAZY, mappedBy="placeUrl")
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="placeId")
     private Place place;
+
+    public PlaceUrl(){
+
+    }
 
     public Long getId() {
         return id;
@@ -35,28 +38,25 @@ public class PlaceUrl {
         this.id = id;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String placeName) {
+        this.url = generateUrl(placeName);
+    }
+
+    private String generateUrl(String placeName) {
+        String url = placeName.replace(" ","-").toLowerCase();
+        return url;
+    }
+
     public Place getPlace() {
         return place;
     }
 
     public void setPlace(Place place) {
         this.place = place;
-    }
-
-    public Long getPlaceId() {
-        return placeId;
-    }
-
-    public void setPlaceId(Long placeId) {
-        this.placeId = placeId;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
 }

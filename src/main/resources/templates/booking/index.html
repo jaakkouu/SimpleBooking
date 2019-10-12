@@ -42,16 +42,30 @@
                 </div>
             </div>
         </div>
-        <script>
-            $(() => {
-
-                let $datepicker = $('.airDatepicker').datepicker({
-                    language: 'en',
-                    dateFormat: 'yyyy-mm-dd'
-                });
-                
-            });
-        </script>
         <script th:src="@{/js/datepicker/datepicker.min.js}"></script>
         <script th:src="@{/js/datepicker/i18n/datepicker.en.js}"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+                let disabledDates = createBookedDatesArray(/*[[${bookedDates}]]*/);
+            /*]]>*/
+        </script> 
+        <script>
+            $(() => {
+                let $datepicker = $('.airDatepicker').datepicker({
+                    language: 'en',
+                    minDate: new Date(),
+                    dateFormat: 'yyyy-mm-dd',
+                    onRenderCell: function(d, type) {
+                    if (type == 'day') {
+                        let disabled = false,
+                            formatted = getFormattedDate(d);
+                        disabled = disabledDates.filter(function(date){
+                            return date == formatted;
+                        }).length
+                        return { disabled: disabled }
+                    }
+                }
+                });
+            });
+        </script>
         <div th:insert="fragments/footer" />

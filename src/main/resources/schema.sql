@@ -65,21 +65,20 @@ CREATE TABLE `bookings` (
   FOREIGN KEY (place_id) REFERENCES places(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-/* users */
+-- users
 insert into users (username, email, password, enabled) VALUES ('admin', 'admin@simplebooking.com', '$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C', 1);
 insert into users (username, email, password, enabled) VALUES ('user', 'user@simplebooking.com', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 1);
 insert into users (username, email, password, enabled) VALUES ('user2', 'user2@simplebooking.com', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 1);
 insert into users (username, email, password, enabled) VALUES ('user3', 'user3@simplebooking.com', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 0);
 insert into users (username, email, password, enabled, removed_at) VALUES ('kovaluu', 'kovaluu@tulinpelleilee.fi', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 0, '2019-10-10 18:16:08');
 
-
-/* authorities */
+-- authorities
 insert into authorities (user_id, username, authority) VALUES (0, 'admin', 'ROLE_ADMIN');
 insert into authorities (user_id, username, authority) VALUES (1, 'user', 'ROLE_USER');
 insert into authorities (user_id, username, authority) VALUES (2, 'user2', 'ROLE_USER');
 insert into authorities (user_id, username, authority) VALUES (3, 'user3', 'ROLE_USER');
 
-/* places */
+-- places
 insert into places (name, large_description, small_description, address, user_id) VALUES ('Sea Hotel', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 32', 2);
 insert into places (name, large_description, small_description, address, user_id) VALUES ('Tower Hotel', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 16', 2);
 insert into places (name, large_description, small_description, address, user_id) VALUES ('Downtown Hotel', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 79', 3);
@@ -88,7 +87,8 @@ insert into place_urls (place_id, url) VALUES (1, "sea-food-restaurant");
 insert into place_urls (place_id, url) VALUES (2, "tower-restaurant");
 insert into place_urls (place_id, url) VALUES (3, "downtown-chinese");
 
-insert into bookings (place_id, name, phonenumber, reservation_date, receipt_number) VALUES (1, "Matti Näsä", "0403934577", "2019-10-01", "5266894187637345544959825");
+-- Bookings
+insert into bookings (place_id, name, phonenumber, reservation_date, receipt_number) VALUES (1, "Matti Näsä", "0403934577", "2019-10-20", "5266894187637345544959825");
 insert into bookings (place_id, name, phonenumber, reservation_date, receipt_number) VALUES (2, "Jaakko Parantainen", "0501215281", "2019-10-04", "5466894787637345544959825");
 insert into bookings (place_id, name, phonenumber, reservation_date, receipt_number) VALUES (2, "Iso Pebe", "0505136369", "2019-10-11", "5236894787617345544959825");
 
