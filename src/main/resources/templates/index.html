@@ -2,11 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
         <meta charset="utf-8">
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" th:href="@{/css/Bootstrap/4.3.1/bootstrap.min.css}" type="text/css">
         <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
         <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" type="text/css">
-        <script th:src="@{/js/Bootstrap/4.3.1/bootstrap.min.js}"></script>     
+        <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+        <script th:src="@{/js/Bootstrap/4.3.1/bootstrap.min.js}"></script>  
         <script th:src="@{/js/main.js}"></script>        
         <title>SimpleBooking :: Booking Made Easy</title>
     </head>
@@ -14,6 +17,16 @@
         <div th:insert="fragments/header" th:with="title='SimpleBooking', subtitle='Book a place easily!'" />
         <div class="container-fluid">
             <div class="container">
+                <div class="row mb-4">
+                    <div class="container text-center">
+                        <h2>Check Out These Awesome Hotels!</h2>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="container text-center">
+                        <button id="openReservationModalBtn" class="btn btn-outline-primary">Check your reservation</button>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="card-columns">
                         <div class="card" th:each="place : ${places}">
@@ -31,4 +44,92 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reservationModalCenterTitle">Check your reservation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="form">
+                            <div class="form-group">
+                                <label for="reservationNumber">Enter your reservation number</label>
+                                <input type="text" class="form-control" id="reservationNumber">
+                            </div>
+                            <button type="button" class="btn btn-primary" style="display: none" id="checkReservationBtn">Check Reservation</button>
+                        </div>
+                        <div id="result"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(() => {
+                let $reservationModal = $('#reservationModal'),
+                    $checkReservationNumberBtn = $reservationModal.find('button#checkReservationBtn'),
+                    $reservationNumberInput = $reservationModal.find('input#reservationNumber');
+                    $form = $reservationModal.find('div#form'),
+                    $result = $reservationModal.find('div#result');
+                $('#openReservationModalBtn').on('click', () => {
+                    $reservationModal.modal('show');
+                });
+                $reservationModal.on('hidden.bs.modal', function (e) {
+                    $result.html('').hide();
+                    $reservationNumberInput.val('');
+                    $checkReservationNumberBtn.hide();
+                    $form.show();
+                });
+                $reservationNumberInput.on('keyup', () => $reservationNumberInput.val().length > 0 ? $checkReservationNumberBtn.show() : $checkReservationNumberBtn.hide());
+                $checkReservationNumberBtn.on('click', () => {
+                    $result.html(getSpinner()).show();
+                    let reservationNumber = $('#reservationNumber').val();
+                    if(!reservationNumber.length) return;
+                    let checking = checkReservation(reservationNumber);
+                    $form.hide(); 
+                    checking.done((response) => {
+                        let data = JSON.parse(response);
+                        $result.fadeOut().html('');
+                        if(data.constructor === Object && data.status) {
+                            data.reservation = JSON.parse(data.reservation);
+                            $result.append(
+                                $('<table />').append(
+                                    $('<tbody />').append(
+                                        $('<tr />').append(
+                                            $('<th />').text('Orderer\'s name: '),
+                                            $('<td />').text(data.reservation.orderer)
+                                        ),
+                                        $('<tr />').append(
+                                            $('<th />').text('Orderer\'s phone number: '),
+                                            $('<td />').text(data.reservation.phoneNumber)
+                                        ),
+                                        $('<tr />').append(
+                                            $('<th />').text('Reservation: '),
+                                            $('<td />').text(data.reservation.reservation)
+                                        ),
+                                        $('<tr />').append(
+                                            $('<th />').text('Date for reservation: '),
+                                            $('<td />').text(data.reservation.reservationDate)
+                                        ),
+                                        $('<tr />').append(
+                                            $('<th />').text(data.reservation.reservation + ' address: '),
+                                            $('<td />').text(data.reservation.address)
+                                        )
+                                    )
+                                )
+                            )
+                        } else {
+                            $result.append($('<p />').text('No reservations found!'));
+                        }
+                        $result.fadeIn();
+                    });
+                });
+            });
+        </script>
         <div th:insert="fragments/footer" />

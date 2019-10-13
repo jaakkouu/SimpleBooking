@@ -4,9 +4,13 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,9 +21,6 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable=false, updatable=false)
     private Long id;
-
-    @Column(name="placeId", nullable=false)
-    private Long placeId;
 
     @Column(name="name", nullable=false)
     private String name;
@@ -32,6 +33,10 @@ public class Booking {
 
     @Column(name="receiptNumber", nullable=false)
     private String receiptNumber;
+
+    @ManyToOne (fetch=FetchType.LAZY)
+    @JoinColumn(name="placeId")
+    private Place place;
 
     public Long getId() {
         return id;
@@ -49,13 +54,6 @@ public class Booking {
         this.phoneNumber = phoneNumber;
     }
 
-    public Long getPlaceId() {
-        return placeId;
-    }
-
-    public void setPlaceId(Long placeId) {
-        this.placeId = placeId;
-    }
 
     public Date getReservationDate() {
         return reservationDate;
@@ -79,6 +77,14 @@ public class Booking {
 
     public void setReceiptNumber(String receiptNumber) {
         this.receiptNumber = receiptNumber;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
     }
 
 }

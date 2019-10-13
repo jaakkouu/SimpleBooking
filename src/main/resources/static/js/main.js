@@ -1,3 +1,11 @@
+$(function () {
+    let token = $("meta[name='_csrf']").attr("content"),
+        header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+});
+
 function getFormattedDate(date) {
     var year = date.getFullYear(),
         month = date.getMonth() + 1,
@@ -16,4 +24,12 @@ function createBookedDatesArray(dates){
     str = str.substr(0, str.length - 1);
     str = str.replace(/\s/g, '');
     return str.split(',');
+}
+
+function checkReservation(reservationNumber) {
+    return $.post('/booking/check', { reservationNumber: reservationNumber });
+}
+
+function getSpinner() {
+    return $('<span />', {'class': 'sr-only'}).append($('<div />', {'class': 'spinner-border', 'role': 'status'}).text('Loading...'));
 }
