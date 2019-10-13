@@ -1,52 +1,39 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" th:href="@{/css/Bootstrap/4.3.1/bootstrap.min.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{/css/datepicker.min.css}" type="text/css">
-        <script th:src="@{/js/Bootstrap/4.3.1/bootstrap.min.js}"></script>     
-        <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
-        <script th:src="@{/js/main.js}"></script>  
-        <title th:text="${place.name}" />
-    </head>
-    <body th:object="${place}">
-        <div th:insert="fragments/header" th:with="title='Edit', subtitle='__*{name}__'" />
-        <div class="container-fluid">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
+<th:block th:object="${place}">
+    <th:block th:insert="fragments/header" th:with="title='Edit', subtitle='__*{name}__'" />
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <textarea id="largeDescription" class="form-control" name="largeDescription" th:text="*{largeDescription}"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="address" id="address" th:value="*{address}" placeholder="Enter address" />
+                    </div>
+                </div>
+                <div class="col" style="opacity: 0.3; pointer-events:none">
+                    <h4>Book Now</h4>
+                    <form action="#" th:action="@{/profile/company}" method="post" >
+                        <input type="hidden" th:value="*{id}">
                         <div class="form-group">
-                            <textarea id="largeDescription" class="form-control" name="largeDescription" th:text="*{largeDescription}"/>
+                            <label for="name">Your name</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter your name">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="address" id="address" th:value="*{address}" placeholder="Enter address" />
+                            <label for="phoneNumber">Your phone number</label>
+                            <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Enter your phone number">
                         </div>
-                    </div>
-                    <div class="col" style="opacity: 0.3; pointer-events:none">
-                        <h4>Book Now</h4>
-                        <form action="#" th:action="@{/profile/company}" method="post" >
-                            <input type="hidden" th:value="*{id}">
-                            <div class="form-group">
-                                <label for="name">Your name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter your name">
-                            </div>
-                            <div class="form-group">
-                                <label for="phoneNumber">Your phone number</label>
-                                <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Enter your phone number">
-                            </div>
-                            <div class="form-group">
-                                <label for="phoneNumber">Reserve a date</label>
-                                <div class="datepicker-here" data-language='en'></div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Make a reservation</button>
-                        </form>
-                    </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Reserve a date</label>
+                            <div class="datepicker-here" data-language='en'></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Make a reservation</button>
+                    </form>
                 </div>
             </div>
         </div>
-        <script th:src="@{/js/datepicker/datepicker.min.js}"></script>
-        <script th:src="@{/js/datepicker/i18n/datepicker.en.js}"></script>
-        <div th:insert="fragments/footer" />
+    </div>
+</th:block>
+<script th:src="@{/js/datepicker/datepicker.min.js}"></script>
+<script th:src="@{/js/datepicker/i18n/datepicker.en.js}"></script>
+<th:block th:insert="fragments/footer" />

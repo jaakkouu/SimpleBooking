@@ -1,35 +1,22 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" th:href="@{/css/Bootstrap/4.3.1/bootstrap.min.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" type="text/css">
-        <script th:src="@{/js/Bootstrap/4.3.1/bootstrap.min.js}"></script>     
-        <script th:src="@{/js/main.js}"></script>        
-        <title>SimpleBooking :: Login</title>
-    </head>
-    <body>
-        <div th:insert="fragments/header" th:with="title='Sign In', subtitle='Sign in to your personal account'" />
-        <div class="container-fluid">
-            <div class="container">
-                <div class="row">
-                    <div class="messageBox error" th:if="${param.error}">Invalid username and password.</div>
-                </div>
-                <div class="row">
-                    <form action="#" th:action="@{/login}" method="post">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" name="username" id="username" aria-describedby="usernameHelp" placeholder="Enter your username">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Sign In</button>
-                    </form>
-                </div>
-            </div>
+<th:block th:insert="fragments/header" th:with="title='Sign In', subtitle='Sign in to your personal account'" />
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="messageBox error" th:if="${param.error}">Invalid username and password.</div>
         </div>
-        <div th:insert="fragments/footer" />
+        <div class="row">
+            <form action="#" th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" aria-describedby="usernameHelp" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+        </div>
+    </div>
+</div>
+<th:block th:insert="fragments/footer" />

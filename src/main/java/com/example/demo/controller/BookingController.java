@@ -71,7 +71,7 @@ public class BookingController {
 
     @PostMapping("/booking/add")
     public String book(Model model, @ModelAttribute Booking booking) {
-        Place place = placeRepository.findById(booking.getPlaceId()).get();
+        Place place = placeRepository.findById(booking.getPlace().getId()).get();
         Receipt receipt = new Receipt(booking.getName(), place.getName(), booking.getPhoneNumber(), booking.getReservationDate());
         booking.setReceiptNumber(receipt.getReceiptNumber());
         bookingRepository.save(booking);

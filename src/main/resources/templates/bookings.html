@@ -1,54 +1,41 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" th:href="@{/css/Bootstrap/4.3.1/bootstrap.min.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" type="text/css">
-        <script th:src="@{/js/Bootstrap/4.3.1/bootstrap.min.js}"></script>     
-        <script th:src="@{/js/main.js}"></script>        
-        <title>SimpleBooking :: My Bookings</title>
-    </head>
-    <body>
-        <div th:insert="fragments/header" th:with="title='My Bookings', subtitle='List of bookings'" />
-        <div class="container-fluid">
-            <div class="container">
-                <div class="row">
-                    <table class="table mb-4" th:each="place : ${places}">
-                        <tbody>
-                            <tr class="border bg-light">
-                                <td colspan="2" class="border-top-0">
-                                    <h5 class="m-0 float-left">
-                                        <span th:text="*{place.name}" /> at
-                                        <span th:text="*{place.address}" />
-                                    </h5>
-                                    <!--<span class="float-right" th:text="'Number of Bookings: ' + ${#lists.size(place.bookings)}"/>-->
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="p-0 border-top-0">
-                                    <table class="table table-borderless table-striped m-0">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Name</th>
-                                                <th width="25%" scope="col">Phone Number</th>
-                                                <th width="25%" scope="col">Reservation Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr th:each="booking : ${place.bookings}">
-                                                <td th:text="${booking.name}" />
-                                                <td th:text="${booking.phoneNumber}" />
-                                                <td th:text="${booking.reservationDate}" />
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<th:block th:insert="fragments/header" th:with="title='My Bookings', subtitle='List of bookings'" />
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <table class="table mb-4" th:each="place : ${places}">
+                <tbody>
+                    <tr class="border bg-light">
+                        <td colspan="2" class="border-top-0">
+                            <h5 class="m-0 float-left">
+                                <span th:text="*{place.name}" /> at
+                                <span th:text="*{place.address}" />
+                            </h5>
+                            <!--<span class="float-right" th:text="'Number of Bookings: ' + ${#lists.size(place.bookings)}"/>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="p-0 border-top-0">
+                            <table class="table table-borderless table-striped m-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th width="25%" scope="col">Phone Number</th>
+                                        <th width="25%" scope="col">Reservation Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="booking : ${place.bookings}">
+                                        <td th:text="${booking.name}" />
+                                        <td th:text="${booking.phoneNumber}" />
+                                        <td th:text="${booking.reservationDate}" />
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div th:insert="fragments/footer" />
+    </div>
+</div>
+<th:block th:insert="fragments/footer" />

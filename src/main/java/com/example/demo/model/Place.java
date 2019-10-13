@@ -48,8 +48,7 @@ public class Place {
     @OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="place")
 	public PlaceUrl placeUrl;
 
-    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinColumn(name="id")
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="place")
     private List<Booking> bookings;
 
     public Place(){
@@ -129,5 +128,7 @@ public class Place {
         }
         return bookedDates;
     }
+
+    
 
 }

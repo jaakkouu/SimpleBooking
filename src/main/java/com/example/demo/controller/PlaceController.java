@@ -35,10 +35,8 @@ public class PlaceController {
     public String index(@PathVariable String url, Model model) {
         Place place = placeRepository.findByPlaceUrl_Url(url);
         Booking booking = new Booking();
-        //booking.setPlaceId(place.getId());
-        model.addAttribute("place", place);
+        booking.setPlace(place);
         model.addAttribute("booking", booking);
-        model.addAttribute("bookedDates", place.getBookedDates().toString());
         return "/booking/index";
     }
 

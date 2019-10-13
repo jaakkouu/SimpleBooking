@@ -1,71 +1,54 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" th:href="@{/css/Bootstrap/4.3.1/bootstrap.min.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{/css/datepicker.min.css}" type="text/css">
-        <script th:src="@{/js/Bootstrap/4.3.1/bootstrap.min.js}"></script>     
-        <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
-        <script th:src="@{/js/main.js}"></script>  
-        <title th:text="${place.name}" />
-    </head>
-    <body>
-        <div th:insert="fragments/header" th:with="title='__${place.name}__', subtitle='__${place.smallDescription}__', backgroundImage='https://picsum.photos/600/249/?blur=1'" />
-        <div class="container-fluid">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <p th:text="${place.largeDescription}"/>
+<th:block th:insert="fragments/header" th:with="title='__${booking.place.name}__', subtitle='__${booking.place.smallDescription}__', backgroundImage='https://picsum.photos/600/249/?blur=1'" />
+<div class="container-fluid" th:object="${booking}">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p th:text="*{place.largeDescription}"/>
+            </div>
+            <div class="col">
+                <h4>Book Now</h4>
+                <form action="#" th:action="@{/booking/add}"  method="post">
+                    <input type="hidden" th:field="*{place.id}">
+                    <div class="form-group">
+                        <label for="name">Your name <sup>*</sup></label>
+                        <input type="text" class="form-control" th:field="*{name}" placeholder="Enter your name">
                     </div>
-                    <div class="col">
-                        <h4>Book Now</h4>
-                        <form action="#" th:action="@{/booking/add}" th:object="${booking}" method="post">
-                            <input type="hidden" th:field="*{placeId}">
-                            <div class="form-group">
-                                <label for="name">Your name <sup>*</sup></label>
-                                <input type="text" class="form-control" th:field="*{name}" placeholder="Enter your name">
-                            </div>
-                            <div class="form-group">
-                                <label for="phoneNumber">Your phone number <sup>*</sup></label>
-                                <input type="text" class="form-control" th:field="*{phoneNumber}" placeholder="Enter your phone number">
-                            </div>
-                            <div class="form-group">
-                                <label for="reservationDate">Reserve a date <sup>*</sup></label>
-                                <input type="text" class="form-control airDatepicker" th:field="*{reservationDate}">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Make a reservation</button>
-                        </form>
+                    <div class="form-group">
+                        <label for="phoneNumber">Your phone number <sup>*</sup></label>
+                        <input type="text" class="form-control" th:field="*{phoneNumber}" placeholder="Enter your phone number">
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="reservationDate">Reserve a date <sup>*</sup></label>
+                        <input type="text" class="form-control airDatepicker" th:field="*{reservationDate}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Make a reservation</button>
+                </form>
             </div>
         </div>
-        <script th:src="@{/js/datepicker/datepicker.min.js}"></script>
-        <script th:src="@{/js/datepicker/i18n/datepicker.en.js}"></script>
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-                let disabledDates = createBookedDatesArray(/*[[${bookedDates}]]*/);
-            /*]]>*/
-        </script> 
-        <script>
-            $(() => {
-                let $datepicker = $('.airDatepicker').datepicker({
-                    language: 'en',
-                    minDate: new Date(),
-                    dateFormat: 'yyyy-mm-dd',
-                    onRenderCell: function(d, type) {
-                    if (type == 'day') {
-                        let disabled = false,
-                            formatted = getFormattedDate(d);
-                        disabled = disabledDates.filter(function(date){
-                            return date == formatted;
-                        }).length
-                        return { disabled: disabled }
-                    }
+    </div>
+</div>
+<script th:src="@{/js/datepicker/datepicker.min.js}"></script>
+<script th:src="@{/js/datepicker/i18n/datepicker.en.js}"></script>
+<script th:inline="javascript">
+    var disabledDates = /*[[${booking.place.getBookedDates()}]]*/ [];
+</script> 
+<script>
+     $(() => {
+        let $datepicker = $('.airDatepicker').datepicker({
+            language: 'en',
+            minDate: new Date(),
+            dateFormat: 'yyyy-mm-dd',
+            onRenderCell: function(d, type) {
+                if (type == 'day') {
+                    let disabled = false,
+                        formatted = getFormattedDate(d);
+                    disabled = disabledDates.filter(function(date){
+                        return date == formatted;
+                    }).length
+                    return { disabled: disabled }
                 }
-                });
-            });
-        </script>
-        <div th:insert="fragments/footer" />
+            }
+        });
+    });
+</script>
+<th:block th:insert="fragments/footer" />

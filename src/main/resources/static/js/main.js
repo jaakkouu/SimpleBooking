@@ -19,11 +19,15 @@ function getFormattedDate(date) {
     return year + '-' + month + '-' + date;
 }
 
-function createBookedDatesArray(dates){
-    var str = dates.substr(1, dates.lenght);
+function createBookedDatesArray(dateString) {
+    console.log(dateString);
+
+    /*
+    var str = dateString.substring(1, dateString.length);
     str = str.substr(0, str.length - 1);
     str = str.replace(/\s/g, '');
     return str.split(',');
+    */
 }
 
 function checkReservation(reservationNumber) {

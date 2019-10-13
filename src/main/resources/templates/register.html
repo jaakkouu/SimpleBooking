@@ -1,43 +1,30 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" th:href="@{/css/Bootstrap/4.3.1/bootstrap.min.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
-        <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}" type="text/css">
-        <script th:src="@{/js/Bootstrap/4.3.1/bootstrap.min.js}"></script>     
-        <script th:src="@{/js/main.js}"></script>        
-        <title>SimpleBooking :: Login</title>
-    </head>
-    <body>
-        <div th:insert="fragments/header" th:with="title='Sign Up', subtitle='Sign up to list your place of business'" />
-        <div class="container-fluid">
-            <div class="container">
-                <div class="row">
-                    <form action="#" th:action="@{/register}" th:object="${user}" method="post">
-                        <div class="form-group">
-                            <label for="username">Username <sup>*</sup></label>
-                            <input type="text" class="form-control" th:field="*{username}" aria-describedby="usernameHelp" placeholder="Enter your username">
-                            <small id="usernameHelp" class="form-text text-muted">Use this to sign in</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email <sup>*</sup></label>
-                            <input type="text" class="form-control" th:field="*{email}" aria-describedby="emailHelp" placeholder="Enter your email address">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>                            
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password <sup>*</sup></label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmPassword">Confirm Password <sup>*</sup></label>
-                            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Enter your password again">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Sign Up</button>
-                        <a th:href="@{/login}" class="btn btn-link">Already have account?</a>
-                    </form>
+<th:block th:insert="fragments/header" th:with="title='Sign Up', subtitle='Sign up to list your place of business'" />
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <form action="#" th:action="@{/register}" th:object="${user}" method="post">
+                <div class="form-group">
+                    <label for="username">Username <sup>*</sup></label>
+                    <input type="text" class="form-control" th:field="*{username}" aria-describedby="usernameHelp" placeholder="Enter your username">
+                    <small id="usernameHelp" class="form-text text-muted">Use this to sign in</small>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="email">Email <sup>*</sup></label>
+                    <input type="text" class="form-control" th:field="*{email}" aria-describedby="emailHelp" placeholder="Enter your email address">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>                            
+                </div>
+                <div class="form-group">
+                    <label for="password">Password <sup>*</sup></label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password <sup>*</sup></label>
+                    <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Enter your password again">
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <a th:href="@{/login}" class="btn btn-link">Already have account?</a>
+            </form>
         </div>
-        <div th:insert="fragments/footer" />
+    </div>
+</div>
+<th:block th:insert="fragments/footer" />
