@@ -1,0 +1,26 @@
+<th:block th:if="${editing}">
+    <th:block th:insert="fragments/editing" />
+</th:block>
+
+<th:block th:insert="fragments/header" th:with="title='__${booking.place.name}__', subtitle='__${booking.place.smallDescription}__', backgroundImage='https://picsum.photos/600/249/?blur=1'" />
+
+<link rel="stylesheet" th:href="@{/css/datepicker.min.css}" type="text/css">
+
+<th:block th:if="${editing}">
+    <th:block th:insert="place/edit" />
+</th:block>
+
+<th:block th:if="${editing != true}">
+    <div class="container-fluid" th:object="${booking}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-12">
+                    <p th:text="*{place.largeDescription}"/>
+                    <p><strong>Address:</strong> <span th:text="*{place.address}"/></p>
+                </div>
+                <div class="col-md-5 col-sm-12" th:insert="fragments/bookingForm"/>
+            </div>
+        </div>
+    </div>
+</th:block>
+<th:block th:insert="fragments/footer" />

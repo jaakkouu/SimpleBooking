@@ -43,8 +43,8 @@ public class PlaceController {
                 model.addAttribute("editing", editing);
             }
         }
-        model.addAttribute("booking", booking);
-        return "/booking/index";
+        model.addAttribute(editing ? "place" : "booking", editing ? place : booking);
+        return "/place/index";
     }
 
     @PostMapping("/{url}/edit")
@@ -67,8 +67,13 @@ public class PlaceController {
         place.setPlaceUrl(placeUrl);
         place.setUserId(user.getId());
         placeUrl.setPlace(place);
-        placeRepository.save(place);
-        return "redirect:/places";
+        // check for existing place name
+        if(placeUrlRepository.findByUrl(placeUrl.getUrl()) == null){
+            placeRepository.save(place);
+            return "redirect:/places";
+        } else {
+            return "/place/add";
+        }
     }
 
     @PostMapping("/place/remove")
