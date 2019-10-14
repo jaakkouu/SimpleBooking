@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class BookingController {
@@ -68,15 +69,19 @@ public class BookingController {
         return obj.toString();
     }
 
+    @GetMapping("/booking/success")
+    public String bookingSuccess(Model model) {
+        return model.asMap().get("receipt") != null ? "/booking/success" : "redirect:/";
+    }
 
     @PostMapping("/booking/add")
-    public String book(Model model, @ModelAttribute Booking booking) {
+    public String book(Model model, @ModelAttribute Booking booking, RedirectAttributes redirectAttributes) {
         Place place = placeRepository.findById(booking.getPlace().getId()).get();
         Receipt receipt = new Receipt(booking.getName(), place.getName(), booking.getPhoneNumber(), booking.getReservationDate());
         booking.setReceiptNumber(receipt.getReceiptNumber());
         bookingRepository.save(booking);
-        model.addAttribute("receipt", receipt);
-        return "/booking/success";
+        redirectAttributes.addFlashAttribute("receipt", receipt);
+        return "redirect:/booking/success";
     }
 
 
