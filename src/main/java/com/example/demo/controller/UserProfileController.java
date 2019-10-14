@@ -25,17 +25,10 @@ public class UserProfileController {
         return "profile";
     }
 
-    @PostMapping("/profile/company")
+    @PostMapping("/profile")
     public String saveCompany(@ModelAttribute User user) {
-        return "profile";
-    }
-    @PostMapping("/profile/billing")
-    public String saveBilling(@ModelAttribute User user) {
-        return "profile";
-    }
-    @PostMapping("/profile/contact")
-    public String saveContact(@ModelAttribute User user) {
-        return "profile";
+        userRepository.save(user);
+        return "redirect:/profile";
     }
 
 }

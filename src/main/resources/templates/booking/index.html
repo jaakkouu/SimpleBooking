@@ -6,10 +6,11 @@
 <div class="container-fluid" th:object="${booking}">
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-md-7 col-sm-12">
                 <p th:text="*{place.largeDescription}"/>
+                <p><strong>Address:</strong> <span th:text="*{place.address}"/></p>
             </div>
-            <div class="col">
+            <div class="col-md-5 col-sm-12">
                 <h4>Book Now</h4>
                 <form action="#" th:action="@{/booking/add}"  method="post">
                     <input type="hidden" th:field="*{place.id}" />

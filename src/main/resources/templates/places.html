@@ -2,15 +2,30 @@
 <div class="container-fluid">
     <div class="container">
         <div class="row">
-            <div class="container text-right">
-                <a class="btn btn-outline-primary" th:href="@{/place/add}" role="button"><i class="fa fa-plus"></i> List a new place</a>
+            <th:block th:if="${places.size() == 0}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <p>You do not have any places listed yet!</p>
+                        </div>
+                        <div class="col text-right">
+                            <a class="btn btn-outline-primary" th:href="@{/place/add}" role="button"><i class="fa fa-plus"></i> List a new place</a>
+                        </div>
+                    </div>
+                </th:block>
+            <th:block th:if="${places.size() > 0}">
+                <div class="container text-right">
+                    <div class="col">
+                        <a class="btn btn-outline-primary" th:href="@{/place/add}" role="button"><i class="fa fa-plus"></i> List a new place</a>
+                    </div>
+            </th:block>
             </div>
+
         </div>
         <div class="row">
-            <table class="table table-borderless">
+            <table class="table table-borderless" th:if="${places.size() > 0}">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Address</th>
                         <th scope="col">Upcoming RSV</th>
@@ -19,17 +34,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="place,iter : ${places}">
-                        <th th:text="${iter.index}" />
-                        <td th:text="${place.name}" />
-                        <td th:text="${place.address}" />
-                        <td th:text="${place.getActiveBookings()}"/>
-                        <td th:text="${place.bookings.size()}"/>
+                    <tr th:each="place : ${places}">
+                        <td th:text="*{place.name}" />
+                        <td th:text="*{place.address}" />
+                        <td th:text="*{place.getActiveBookings()}"/>
+                        <td th:text="*{place.bookings.size()}"/>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="..." style="width: 100%">
-                                <a class="btn btn-primary" th:href="@{/__${place.placeUrl.url}__}" role="button"><i class="fa fa-globe"></i> View</a>
-                                <a class="btn btn-warning" th:href="@{/__${place.placeUrl.url}__?editing=true}" role="button"><i class="fa fa-edit"></i> Edit</a>
-                                <a class="btn btn-danger" th:href="@{/__${place.placeUrl.url}__/remove}" role="button"><i class="fa fa-trash"></i> Remove</a>
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary" th:href="@{/__*{place.placeUrl.url}__}" role="button"><i class="fa fa-globe"></i> View</a>
+                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a class="dropdown-item" th:href="@{/__*{place.placeUrl.url}__?editing=true}"><i class="fa fa-edit"></i> Edit</a>
+                                    <form th:action="@{/place/remove}" onclick="$(this).submit()" class="dropdown-item form-inline" style="cursor: pointer" method="POST">
+                                        <input type="hidden" name="placeId" th:value="*{place.id}" /><i class="fa fa-trash"></i> Remove
+                                    </form>
+                                </div>
                             </div>
                         </td>
                     </tr>

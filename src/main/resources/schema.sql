@@ -31,8 +31,8 @@ CREATE TABLE `places` (
   user_id int(11) NOT NULL,
   name varchar(255) NOT NULL,
   address varchar(255) NOT NULL,
-  large_description varchar(255) NOT NULL,
-  small_description varchar(50) NOT NULL,
+  large_description varchar(1024) NOT NULL,
+  small_description varchar(100) NOT NULL,
   created_at datetime,
   modified_at datetime,
   removed_at datetime,
@@ -65,6 +65,26 @@ CREATE TABLE `bookings` (
   FOREIGN KEY (place_id) REFERENCES places(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+CREATE TABLE `companies` (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  name varchar(255),
+  address varchar(255),
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE `contacts` (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  first_name varchar(255),
+  last_name varchar(255),
+  address varchar(255),
+  phonenumber varchar(255),
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 -- users
 insert into users (username, email, password, enabled) VALUES ('admin', 'admin@simplebooking.com', '$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C', 1);
 insert into users (username, email, password, enabled) VALUES ('user', 'user@simplebooking.com', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 1);
@@ -79,13 +99,13 @@ insert into authorities (user_id, username, authority) VALUES (2, 'user2', 'ROLE
 insert into authorities (user_id, username, authority) VALUES (3, 'user3', 'ROLE_USER');
 
 -- places
-insert into places (name, large_description, small_description, address, user_id) VALUES ('Sea Hotel', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 32', 2);
-insert into places (name, large_description, small_description, address, user_id) VALUES ('Tower Hotel', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 16', 2);
-insert into places (name, large_description, small_description, address, user_id) VALUES ('Downtown Hotel', 'Lorem ipsum dolor sit amet', 'Lorem ipsum', 'Random Road 79', 3);
+insert into places (name, large_description, small_description, address, user_id) VALUES ('Sea Hotel', 'Bacon ipsum dolor amet sirloin pork belly short loin shoulder rump bresaola t-bone beef pig leberkas strip steak. Corned beef pork belly strip steak turducken prosciutto cupim cow. Doner salami buffalo shankle pancetta biltong, sirloin fatback short loin burgdoggen ball tip tongue. Doner kevin picanha beef turducken corned beef, kielbasa pork frankfurter jerky pork belly tail boudin ribeye salami. T-bone boudin ham hock burgdoggen. Turkey burgdoggen corned beef, spare ribs pastrami fatback biltong doner ribeye meatball sirloin. Pancetta chicken beef ribs shoulder sausage drumstick shankle rump pork belly capicola cupim turkey tri-tip bacon.', 'Pig corned beef ball tip, turkey pork sirloin fatback capicola.', 'Random Road 32', 2);
+insert into places (name, large_description, small_description, address, user_id) VALUES ('Tower Hotel', 'Bacon ipsum dolor amet sirloin pork belly short loin shoulder rump bresaola t-bone beef pig leberkas strip steak. Corned beef pork belly strip steak turducken prosciutto cupim cow. Doner salami buffalo shankle pancetta biltong, sirloin fatback short loin burgdoggen ball tip tongue. Doner kevin picanha beef turducken corned beef, kielbasa pork frankfurter jerky pork belly tail boudin ribeye salami. T-bone boudin ham hock burgdoggen. Turkey burgdoggen corned beef, spare ribs pastrami fatback biltong doner ribeye meatball sirloin. Pancetta chicken beef ribs shoulder sausage drumstick shankle rump pork belly capicola cupim turkey tri-tip bacon.', 'Pork pork chop sirloin, burgdoggen pancetta ham venison bresaola.', 'Random Road 16', 2);
+insert into places (name, large_description, small_description, address, user_id) VALUES ('Downtown Hotel', 'Bacon ipsum dolor amet sirloin pork belly short loin shoulder rump bresaola t-bone beef pig leberkas strip steak. Corned beef pork belly strip steak turducken prosciutto cupim cow. Doner salami buffalo shankle pancetta biltong, sirloin fatback short loin burgdoggen ball tip tongue. Doner kevin picanha beef turducken corned beef, kielbasa pork frankfurter jerky pork belly tail boudin ribeye salami. T-bone boudin ham hock burgdoggen. Turkey burgdoggen corned beef, spare ribs pastrami fatback biltong doner ribeye meatball sirloin. Pancetta chicken beef ribs shoulder sausage drumstick shankle rump pork belly capicola cupim turkey tri-tip bacon.', 'Chicken jerky biltong kielbasa.', 'Random Road 79', 3);
 
-insert into place_urls (place_id, url) VALUES (1, "sea-food-restaurant");
-insert into place_urls (place_id, url) VALUES (2, "tower-restaurant");
-insert into place_urls (place_id, url) VALUES (3, "downtown-chinese");
+insert into place_urls (place_id, url) VALUES (1, "sea-hotel");
+insert into place_urls (place_id, url) VALUES (2, "tower-hotel");
+insert into place_urls (place_id, url) VALUES (3, "downtown-hotel");
 
 -- Bookings
 insert into bookings (place_id, name, phonenumber, reservation_date, receipt_number) VALUES (1, "Matti Näsä", "0403934577", "2019-10-20", "5266894187637345544959825");

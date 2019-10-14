@@ -47,7 +47,7 @@ public class PlaceController {
         return "/booking/index";
     }
 
-    @GetMapping("/{url}/edit")
+    @PostMapping("/{url}/edit")
     public String edit(@PathVariable String url, Model model) {
         model.addAttribute("place", placeRepository.findByPlaceUrl_Url(url));
         return "/place/edit";
@@ -68,6 +68,16 @@ public class PlaceController {
         place.setUserId(user.getId());
         placeUrl.setPlace(place);
         placeRepository.save(place);
+        return "redirect:/places";
+    }
+
+    @PostMapping("/place/remove")
+    public String removePlace(@RequestParam Long placeId,  @AuthenticationPrincipal UserDetails currentUser) {
+        if(currentUser != null && placeId != null) {
+            User user = userRepository.findUserByUsername(currentUser.getUsername());
+            Place place = placeRepository.findByUserIdAndId(user.getId(), placeId);
+            placeRepository.delete(place);
+        }
         return "redirect:/places";
     }
 

@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class PlacesController {
@@ -26,5 +28,7 @@ public class PlacesController {
         model.addAttribute("places", placeRepository.findPlacesByUserId(user.getId()));
         return "places";
     }
+
+  
 
 }
