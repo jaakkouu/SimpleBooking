@@ -1,4 +1,5 @@
 <th:block th:insert="fragments/header" th:with="title='__${booking.place.name}__', subtitle='__${booking.place.smallDescription}__', backgroundImage='https://picsum.photos/600/249/?blur=1'" />
+<link rel="stylesheet" th:href="@{/css/datepicker.min.css}" type="text/css">
 <div class="container-fluid" th:object="${booking}">
     <div class="container">
         <div class="row">
@@ -8,18 +9,18 @@
             <div class="col">
                 <h4>Book Now</h4>
                 <form action="#" th:action="@{/booking/add}"  method="post">
-                    <input type="hidden" th:field="*{place.id}">
+                    <input type="hidden" th:field="*{place.id}" />
                     <div class="form-group">
                         <label for="name">Your name <sup>*</sup></label>
-                        <input type="text" class="form-control" th:field="*{name}" placeholder="Enter your name">
+                        <input type="text" class="form-control" th:field="*{name}" placeholder="Enter your name" />
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber">Your phone number <sup>*</sup></label>
-                        <input type="text" class="form-control" th:field="*{phoneNumber}" placeholder="Enter your phone number">
+                        <input type="text" class="form-control" th:field="*{phoneNumber}" placeholder="Enter your phone number" />
                     </div>
                     <div class="form-group">
                         <label for="reservationDate">Reserve a date <sup>*</sup></label>
-                        <input type="text" class="form-control airDatepicker" th:field="*{reservationDate}">
+                        <input type="text" class="form-control airDatepicker" th:field="*{reservationDate}" />
                     </div>
                     <button type="submit" class="btn btn-primary">Make a reservation</button>
                 </form>
@@ -30,13 +31,12 @@
 <script th:src="@{/js/datepicker/datepicker.min.js}"></script>
 <script th:src="@{/js/datepicker/i18n/datepicker.en.js}"></script>
 <script th:inline="javascript">
-    var disabledDates = /*[[${booking.place.getBookedDates()}]]*/ [];
-</script> 
+    let disabledDates = /*[[${booking.place.getBookedDates()}]]*/ [];
+</script>
 <script>
      $(() => {
         let $datepicker = $('.airDatepicker').datepicker({
             language: 'en',
-            minDate: new Date(),
             dateFormat: 'yyyy-mm-dd',
             onRenderCell: function(d, type) {
                 if (type == 'day') {
@@ -52,3 +52,4 @@
     });
 </script>
 <th:block th:insert="fragments/footer" />
+

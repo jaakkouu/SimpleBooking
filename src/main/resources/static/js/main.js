@@ -20,14 +20,12 @@ function getFormattedDate(date) {
 }
 
 function createBookedDatesArray(dateString) {
-    console.log(dateString);
-
-    /*
     var str = dateString.substring(1, dateString.length);
     str = str.substr(0, str.length - 1);
     str = str.replace(/\s/g, '');
-    return str.split(',');
-    */
+    var arr = str.split(',');
+    console.log(arr);
+    return arr;
 }
 
 function checkReservation(reservationNumber) {
