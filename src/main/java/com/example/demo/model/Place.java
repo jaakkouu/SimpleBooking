@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -129,6 +130,17 @@ public class Place {
         return bookedDates;
     }
 
-    
-
+    public int getActiveBookings() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date currentDate = new Date();
+        dateFormat.format(currentDate);
+        int numberOfActiveBookings = 0;
+        for(Booking booking : bookings){
+            Date x = booking.getReservationDate();
+            if(x.after(currentDate) || x.equals(currentDate)){
+                numberOfActiveBookings++;
+            }
+        }
+        return numberOfActiveBookings;
+    }
 }

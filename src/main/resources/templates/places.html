@@ -13,7 +13,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Address</th>
-                        <th scope="col">Active RSV</th>
+                        <th scope="col">Upcoming RSV</th>
                         <th scope="col">Total RSV</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -23,8 +23,8 @@
                         <th th:text="${iter.index}" />
                         <td th:text="${place.name}" />
                         <td th:text="${place.address}" />
-                        <td>0</td>
-                        <td>0</td>
+                        <td th:text="${place.getActiveBookings()}"/>
+                        <td th:text="${place.bookings.size()}"/>
                         <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="..." style="width: 100%">
                                 <a class="btn btn-primary" th:href="@{/__${place.placeUrl.url}__}" role="button"><i class="fa fa-globe"></i> View</a>
