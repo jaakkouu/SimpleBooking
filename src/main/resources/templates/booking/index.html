@@ -1,3 +1,6 @@
+<th:block th:if="${editing == true}">
+    <th:block th:insert="fragments/editing" />
+</th:block>
 <th:block th:insert="fragments/header" th:with="title='__${booking.place.name}__', subtitle='__${booking.place.smallDescription}__', backgroundImage='https://picsum.photos/600/249/?blur=1'" />
 <link rel="stylesheet" th:href="@{/css/datepicker.min.css}" type="text/css">
 <div class="container-fluid" th:object="${booking}">

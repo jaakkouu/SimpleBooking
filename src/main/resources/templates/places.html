@@ -28,7 +28,7 @@
                         <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="..." style="width: 100%">
                                 <a class="btn btn-primary" th:href="@{/__${place.placeUrl.url}__}" role="button"><i class="fa fa-globe"></i> View</a>
-                                <a class="btn btn-warning" th:href="@{/__${place.placeUrl.url}__/edit}" role="button"><i class="fa fa-edit"></i> Edit</a>
+                                <a class="btn btn-warning" th:href="@{/__${place.placeUrl.url}__?editing=true}" role="button"><i class="fa fa-edit"></i> Edit</a>
                                 <a class="btn btn-danger" th:href="@{/__${place.placeUrl.url}__/remove}" role="button"><i class="fa fa-trash"></i> Remove</a>
                             </div>
                         </td>

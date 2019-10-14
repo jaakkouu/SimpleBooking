@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PlaceController {
@@ -32,10 +33,16 @@ public class PlaceController {
     UserRepository userRepository;
 
     @GetMapping("/{url}")
-    public String index(@PathVariable String url, Model model) {
-        Place place = placeRepository.findByPlaceUrl_Url(url);
+    public String index(@PathVariable String url, Model model, @RequestParam(required = false) boolean editing, @AuthenticationPrincipal UserDetails currentUser) {
+        Place place = placeRepository.findByPlaceUrl_Url(url);    
         Booking booking = new Booking();
         booking.setPlace(place);
+        if(editing && currentUser != null) {
+            User user = userRepository.findUserByUsername(currentUser.getUsername());
+            if(place.equals(placeRepository.findByUserIdAndId(user.getId(), place.getId()))) {
+                model.addAttribute("editing", editing);
+            }
+        }
         model.addAttribute("booking", booking);
         return "/booking/index";
     }
