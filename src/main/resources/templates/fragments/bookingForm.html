@@ -1,0 +1,40 @@
+<h4>Book Now</h4>
+<form action="#" th:action="@{/booking/add}"  method="post">
+    <input type="hidden" th:field="*{place.id}" />
+    <div class="form-group">
+        <label for="name">Your name <sup>*</sup></label>
+        <input type="text" class="form-control" th:field="*{name}" placeholder="Enter your name" />
+    </div>
+    <div class="form-group">
+        <label for="phoneNumber">Your phone number <sup>*</sup></label>
+        <input type="text" class="form-control" th:field="*{phoneNumber}" placeholder="Enter your phone number" />
+    </div>
+    <div class="form-group">
+        <label for="reservationDate">Reserve a date <sup>*</sup></label>
+        <input type="text" class="form-control airDatepicker" th:field="*{reservationDate}" />
+    </div>
+    <button type="submit" class="btn btn-primary">Make a reservation</button>
+</form>
+<script th:src="@{/js/datepicker/datepicker.min.js}"></script>
+<script th:src="@{/js/datepicker/i18n/datepicker.en.js}"></script>
+<script th:inline="javascript">
+    let disabledDates = /*[[${booking.place.getBookedDates()}]]*/ [];
+</script>
+<script>
+     $(() => {
+        let $datepicker = $('.airDatepicker').datepicker({
+            language: 'en',
+            dateFormat: 'yyyy-mm-dd',
+            onRenderCell: function(d, type) {
+                if (type == 'day') {
+                    let disabled = false,
+                        formatted = getFormattedDate(d);
+                    disabled = disabledDates.filter(function(date){
+                        return date == formatted;
+                    }).length
+                    return { disabled: disabled }
+                }
+            }
+        });
+    });
+</script>
