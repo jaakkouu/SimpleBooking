@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,12 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 @Table(name="contacts")
 public class Contact {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="id", nullable=false, updatable=false)
     private Long id;
 
@@ -31,13 +35,13 @@ public class Contact {
     @Column(name="phonenumber")
     private String phonenumber;
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id")
-    private User user;
+    @Column(name="modifiedAt")
+    @UpdateTimestamp
+    private LocalDateTime modifiedAt;
 
-    public Contact() {
-        
-    }
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="userId")
+    private User user;
 
     public String getFirstName() {
         return firstName;

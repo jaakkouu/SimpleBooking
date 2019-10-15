@@ -14,7 +14,7 @@
         </ul>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-active" role="tabpanel" aria-labelledby="pills-active-tab">
-                <table class="table table-borderless">
+                <table class="table table-borderless table-fixed">
                     <thead>
                         <tr>
                             <th scope="col">Username</th>
@@ -24,17 +24,22 @@
                     </thead>
                     <tbody>
                         <th:block th:each="user : ${users}">
-                            <tr th:if="${user.enabled}">
-                                <td th:text="${user.username}" />
-                                <td></td>
-                                <td></td>
+                            <tr th:if="${user.enabled}" th:attr="data-userid=*{user.id}">
+                                <td th:text="*{user.username}" />
+                                <td th:text="*{user.role.authority}" />
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a class="btn btn-primary btn-sm editUser" th:href="@{/user/__*{user.id}__/edit}" role="button"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-sm deleteUser"><i class="fa fa-trash"></i> Delete</button>
+                                    </div>
+                                </td>
                             </tr>
                         </th:block>
                     </tbody>
                 </table>
             </div>
             <div class="tab-pane fade" id="pills-inactive" role="tabpanel" aria-labelledby="pills-inactive-tab">
-                <table class="table table-borderless">
+                <table class="table table-borderless table-fixed">
                     <thead>
                         <tr>
                             <th scope="col">Username</th>
@@ -43,21 +48,26 @@
                     </thead>
                     <tbody>
                         <th:block th:each="user : ${users}">
-                            <tr th:if="${user.enabled == 0 && user.removedAt == null}">
+                            <tr th:if="${user.enabled == 0 && user.removedAt == null}" th:attr="data-userid=*{user.id}">
                                 <td th:text="${user.username}" />
-                                <td></td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-success btn-sm activateUser"><i class="fa fa-check"></i> Activate</button>
+                                        <button class="btn btn-danger btn-sm deleteUser"><i class="fa fa-times"></i> Delete</button>
+                                    </div>
+                                </td>
                             </tr>
                         </th:block>
                     </tbody>
                 </table>
             </div>
             <div class="tab-pane fade" id="pills-removed" role="tabpanel" aria-labelledby="pills-removed-tab">
-                <table class="table table-borderless">
+                <table class="table table-borderless table-fixed">
                     <thead>
                         <tr>
                             <th scope="col">Username</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Account Deletion On</th>
+                            <th scope="col">Account Removed On</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,7 +75,7 @@
                             <tr th:if="${user.removedAt != null && user.enabled == 0}">
                                 <td th:text="${user.username}" />
                                 <td th:text="${user.email}" />
-                                <td th:text="${user.removedAt}"></td>
+                                <td th:text="${#temporals.format(user.removedAt, 'yyyy-MM-dd HH:mm:ss')}"/>
                             </tr>
                         </th:block>
                     </tbody>
@@ -74,4 +84,27 @@
         </div>
     </div>
 </div>
+<script>
+    $(() => {
+        $('.activateUser, .deleteUser').on('click', (e) => {
+            let $target = $(e.target),
+                $tr = $target.closest('tr'),
+                userId = $tr.attr('data-userid'),
+                action = $target.hasClass('activateUser') ? 'activate' : 'delete',
+                promise = action == 'activate' ? activateUser(userId) : deleteUser(userId);   
+            promise.done((response) => {
+                var response = JSON.parse(response);
+                if(response) {
+                    $tr.fadeOut().remove();
+                }
+            });
+        });
+    });
+    function activateUser(userId) {
+        return $.post('/user/activate', { 'userId': userId });
+    }
+    function deleteUser(userId) {
+        return $.post('/user/remove', { 'userId': userId });
+    }
+</script>
 <th:block th:insert="fragments/footer" />

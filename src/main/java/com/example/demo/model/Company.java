@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="companies")
@@ -25,13 +29,13 @@ public class Company {
     @Column(name="address")
     private String address;
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id")
-    private User user;
+    @Column(name="modifiedAt")
+    @UpdateTimestamp
+    private LocalDateTime modifiedAt;
 
-    public Company() {
-        
-    }
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="userId")
+    private User user;
 
     public String getName() {
         return name;

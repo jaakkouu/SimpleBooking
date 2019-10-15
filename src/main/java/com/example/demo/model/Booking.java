@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="bookings")
@@ -21,19 +26,32 @@ public class Booking {
     @Column(name="id", nullable=false, updatable=false)
     private Long id;
 
+    @NotEmpty(message="Please provide an name")
     @Column(name="name", nullable=false)
     private String name;
-
+    
+    @NotEmpty(message="Please provide an phonenumber")
     @Column(name="phonenumber", nullable=false)
     private String phoneNumber;
-
+    
     @Column(name="reservationDate", nullable=false)
     private Date reservationDate;
 
     @Column(name="receiptNumber", nullable=false)
     private String receiptNumber;
 
-    @ManyToOne (fetch=FetchType.LAZY)
+    @Column(name="createdAt")
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+ 
+    @Column(name="modifiedAt")
+    @UpdateTimestamp
+    private LocalDateTime modifiedAt;
+
+    @Column(name="removedAt")
+    private LocalDateTime removedAt;
+
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="placeId")
     private Place place;
 

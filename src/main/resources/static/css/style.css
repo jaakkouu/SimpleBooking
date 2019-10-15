@@ -2,6 +2,10 @@ body {
     overflow-y: scroll
 }
 
+.table-fixed {
+    table-layout: fixed
+}
+
 .table thead tr {
     border-bottom: 2px solid #eeeeee
 }

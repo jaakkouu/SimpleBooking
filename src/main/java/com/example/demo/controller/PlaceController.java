@@ -65,7 +65,7 @@ public class PlaceController {
         User user = userRepository.findUserByUsername(currentUser.getUsername());
         placeUrl.setUrl(place.getName());
         place.setPlaceUrl(placeUrl);
-        place.setUserId(user.getId());
+        //place.setUserId(user.getId());
         placeUrl.setPlace(place);
         // check for existing place name
         if(placeUrlRepository.findByUrl(placeUrl.getUrl()) == null){
@@ -77,7 +77,7 @@ public class PlaceController {
     }
 
     @PostMapping("/place/remove")
-    public String removePlace(@RequestParam Long placeId,  @AuthenticationPrincipal UserDetails currentUser) {
+    public String removePlace(@RequestParam Long placeId, @AuthenticationPrincipal UserDetails currentUser) {
         if(currentUser != null && placeId != null) {
             User user = userRepository.findUserByUsername(currentUser.getUsername());
             Place place = placeRepository.findByUserIdAndId(user.getId(), placeId);

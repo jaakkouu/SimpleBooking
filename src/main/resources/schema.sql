@@ -70,6 +70,7 @@ CREATE TABLE `companies` (
   user_id int(11) NOT NULL,
   name varchar(255),
   address varchar(255),
+  modified_at datetime,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -81,6 +82,7 @@ CREATE TABLE `contacts` (
   last_name varchar(255),
   address varchar(255),
   phonenumber varchar(255),
+  modified_at datetime,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -93,10 +95,11 @@ insert into users (username, email, password, enabled) VALUES ('user3', 'user3@s
 insert into users (username, email, password, enabled, removed_at) VALUES ('kovaluu', 'kovaluu@tulinpelleilee.fi', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 0, '2019-10-10 18:16:08');
 
 -- authorities
-insert into authorities (user_id, username, authority) VALUES (0, 'admin', 'ROLE_ADMIN');
-insert into authorities (user_id, username, authority) VALUES (1, 'user', 'ROLE_USER');
-insert into authorities (user_id, username, authority) VALUES (2, 'user2', 'ROLE_USER');
-insert into authorities (user_id, username, authority) VALUES (3, 'user3', 'ROLE_USER');
+insert into authorities (user_id, username, authority) VALUES (1, 'admin', 'ROLE_ADMIN');
+insert into authorities (user_id, username, authority) VALUES (2, 'user', 'ROLE_USER');
+insert into authorities (user_id, username, authority) VALUES (3, 'user2', 'ROLE_USER');
+insert into authorities (user_id, username, authority) VALUES (4, 'user3', 'ROLE_USER');
+insert into authorities (user_id, username, authority) VALUES (5, 'kovaluu', 'ROLE_USER');
 
 -- places
 insert into places (name, large_description, small_description, address, user_id) VALUES ('Sea Hotel', 'Bacon ipsum dolor amet sirloin pork belly short loin shoulder rump bresaola t-bone beef pig leberkas strip steak. Corned beef pork belly strip steak turducken prosciutto cupim cow. Doner salami buffalo shankle pancetta biltong, sirloin fatback short loin burgdoggen ball tip tongue. Doner kevin picanha beef turducken corned beef, kielbasa pork frankfurter jerky pork belly tail boudin ribeye salami. T-bone boudin ham hock burgdoggen. Turkey burgdoggen corned beef, spare ribs pastrami fatback biltong doner ribeye meatball sirloin. Pancetta chicken beef ribs shoulder sausage drumstick shankle rump pork belly capicola cupim turkey tri-tip bacon.', 'Pig corned beef ball tip, turkey pork sirloin fatback capicola.', 'Random Road 32', 2);

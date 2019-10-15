@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,9 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,17 +27,16 @@ public class User {
     @Column(name="id", nullable=false, updatable=false)
     private Long id;
 
-    @NotEmpty
-    @Column(name="username", nullable=false, unique=true)
+    @NotEmpty(message="Please provide an username")
+    @Column(name="username", updatable=false, nullable=false, unique=true)
     private String username;
 
-    @Email
-    @NotEmpty
-    @Column(name="email", nullable=false, unique=true)
+    @NotEmpty(message="Please provide an email address")
+    @Column(name="email", updatable=false, nullable=false, unique=true)
     private String email;
     
-    @NotEmpty
-    @Column(name="password", nullable=false)
+    @NotEmpty(message="Please provide an password")
+    @Column(name="password", updatable=false, nullable=false)
     private String password;
 
     @Column(name="enabled", nullable=false)
@@ -54,10 +54,16 @@ public class User {
     private LocalDateTime removedAt;
 
     @OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")
+    private Role role;
+
+    @OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")
     private Company company;
     
     @OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")
-	private Contact contact;
+    private Contact contact;
+
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")
+    private List<Place> places;
 
     public User(){
 
@@ -141,6 +147,22 @@ public class User {
 
     public void setContact(Contact contact) {
         this.contact = contact;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(List<Place> places) {
+        this.places = places;
     }
 
 }
