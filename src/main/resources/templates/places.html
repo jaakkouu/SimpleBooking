@@ -45,7 +45,7 @@
                                 <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                     <a class="dropdown-item" th:href="@{/__*{place.placeUrl.url}__?editing=true}"><i class="fa fa-edit"></i> Edit</a>
-                                    <a class="dropdown-item" id="openConfirmModal" href="#" th:attr="data-placeid=*{place.id}, data-name=*{place.name}"><i class="fa fa-trash"></i> Remove</a>
+                                    <a class="dropdown-item openConfirmModal" href="#" th:attr="data-placeid=*{place.id}, data-name=*{place.name}"><i class="fa fa-trash"></i> Remove</a>
                                 </div>
                             </div>
                         </td>
@@ -81,8 +81,9 @@
     $(() => {
         let $confirmModal = $("#confirmModal"),
             $confirmModalBtn = $confirmModal.find('#btnOk');
-        $("#openConfirmModal").on('click', e => {
+        $(".openConfirmModal").on('click', e => {
             let $a = $(e.target);
+            console.log($a);
             $confirmModal.find('.modal-title').text('Removing ' + $a.attr('data-name'));
             $confirmModal.find('.modal-body form input[name="placeId"]').val($a.attr('data-placeid'));
             $confirmModal.modal('show');
