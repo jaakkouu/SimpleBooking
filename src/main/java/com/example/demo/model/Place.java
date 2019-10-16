@@ -66,7 +66,7 @@ public class Place {
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="place")
     private List<Booking> bookings;
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="userId")
     private User user;
 

@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.dao.UserRepository;
+import com.example.demo.model.Company;
+import com.example.demo.model.Contact;
 import com.example.demo.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -68,12 +70,13 @@ public class UserController {
     @PostMapping("/profile")
     public String save(Model model, @ModelAttribute User formUser, @AuthenticationPrincipal UserDetails currentUser) {
         User user = userRepository.findUserByUsername(currentUser.getUsername());
-        //formUser.setId(user.getId());
-        //formUser.setEmail(user.getEmail());
-        //formUser.setPassword(user.getPassword());
-        //formUser.setCompany(formUser.getCompany());
-        //formUser.setContact(formUser.getContact());
-        //userRepository.save(formUser);
+        Company company = formUser.getCompany();
+        Contact contact = formUser.getContact();
+        company.setUser(user);
+        contact.setUser(user);
+        user.setCompany(company);
+        user.setContact(contact);
+        userRepository.save(user);
         return "redirect:/profile";
     }
 

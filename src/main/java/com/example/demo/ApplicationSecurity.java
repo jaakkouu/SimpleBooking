@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 @Configuration
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
@@ -34,12 +35,22 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-        .authorizeRequests().antMatchers("/", "/**", "/css/**", "/js/**", "/login", "/register", "/booking/**").permitAll()
-        .and().authorizeRequests().anyRequest().authenticated()
-        .and().formLogin()
-            .loginPage("/login").defaultSuccessUrl("/places").permitAll()
-        .and()
-        .logout().permitAll();
+        .authorizeRequests()
+            .antMatchers("/users").access("hasRole('ROLE_ADMIN')")
+            .antMatchers(
+                "/users",
+                "/user/** ",
+                "/place/**",
+                "/**/edit",
+                "/profile",
+                "/places",
+                "/bookings/"
+            ).access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+            .and()
+                .formLogin().loginPage("/login")
+                .defaultSuccessUrl("/places")
+            .and()
+                .logout();
     }
 
 }

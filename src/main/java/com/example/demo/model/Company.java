@@ -23,6 +23,10 @@ public class Company {
     @Column(name="id", nullable=false, updatable=false)
     private Long id;
 
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="userId", nullable=false, updatable=false, unique = true)
+    private User user;
+
     @Column(name="name")
     private String name;
 
@@ -32,10 +36,6 @@ public class Company {
     @Column(name="modifiedAt")
     @UpdateTimestamp
     private LocalDateTime modifiedAt;
-
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="userId")
-    private User user;
 
     public String getName() {
         return name;

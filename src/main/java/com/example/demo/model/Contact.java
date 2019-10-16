@@ -19,9 +19,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Contact {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable=false, updatable=false)
     private Long id;
+
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="userId", nullable=false, updatable=false, unique = true)
+    private User user;
 
     @Column(name="firstName")
     private String firstName;
@@ -39,9 +43,21 @@ public class Contact {
     @UpdateTimestamp
     private LocalDateTime modifiedAt;
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="userId")
-    private User user;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -75,20 +91,12 @@ public class Contact {
         this.phonenumber = phonenumber;
     }
 
-    public User getUser() {
-        return user;
+    public LocalDateTime getModifiedAt() {
+        return modifiedAt;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setModifiedAt(LocalDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 
 }

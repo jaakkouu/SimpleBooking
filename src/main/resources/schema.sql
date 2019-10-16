@@ -115,4 +115,10 @@ insert into bookings (place_id, name, phonenumber, reservation_date, receipt_num
 insert into bookings (place_id, name, phonenumber, reservation_date, receipt_number) VALUES (2, "Jaakko Parantainen", "0501215281", "2019-10-04", "5466894787637345544959825");
 insert into bookings (place_id, name, phonenumber, reservation_date, receipt_number) VALUES (2, "Iso Pebe", "0505136369", "2019-10-11", "5236894787617345544959825");
 
+-- Profile
+insert into contacts (user_id, first_name, last_name, address, phonenumber) VALUES (2, "Jaakko", "Uusitalo", "Pasilanraitio", "0401851100");
+
+-- Company info
+insert into companies (user_id, name, address) VALUES (2, "Amazing Company Oy", "StreetStreet 12nd Avenue");
+
 SET FOREIGN_KEY_CHECKS=1;

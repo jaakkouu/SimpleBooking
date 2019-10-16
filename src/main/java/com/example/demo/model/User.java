@@ -53,13 +53,13 @@ public class User {
     @Column(name="removedAt")
     private LocalDateTime removedAt;
 
-    @OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")
+    @OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="user")
     private Role role;
 
-    @OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")
+    @OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="user")
     private Company company;
     
-    @OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")
+    @OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="user")
     private Contact contact;
 
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")

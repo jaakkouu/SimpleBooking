@@ -43,6 +43,7 @@ public class PlaceController {
                 model.addAttribute("editing", editing);
             }
         }
+        model.addAttribute("user", userRepository.findById(place.getUser().getId()).get());
         model.addAttribute(editing ? "place" : "booking", editing ? place : booking);
         return "/place/index";
     }
@@ -65,7 +66,7 @@ public class PlaceController {
         User user = userRepository.findUserByUsername(currentUser.getUsername());
         placeUrl.setUrl(place.getName());
         place.setPlaceUrl(placeUrl);
-        //place.setUserId(user.getId());
+        place.setUser(user);
         placeUrl.setPlace(place);
         // check for existing place name
         if(placeUrlRepository.findByUrl(placeUrl.getUrl()) == null){

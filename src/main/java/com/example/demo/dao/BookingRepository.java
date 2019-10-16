@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.example.demo.model.Booking;

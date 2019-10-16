@@ -14,11 +14,47 @@
     <div class="container-fluid" th:object="${booking}">
         <div class="container">
             <div class="row">
-                <div class="col-md-7 col-sm-12">
-                    <p th:text="*{place.largeDescription}"/>
-                    <p><strong>Address:</strong> <span th:text="*{place.address}"/></p>
+                <div class="col-md-6 col-sm-12">
+                    <div class="row mb-4">
+                        <h3>General information</h3>
+                    </div>
+                    <div class="row">
+                        <p th:text="*{place.largeDescription}"/>
+                    </div>
+                    <div class="row">
+                        <p><strong>Address:</strong> <span th:text="*{place.address}"/></p>
+                    </div>
+                    <div class="row">
+                        <div class="container">
+                            <div class="row mb-2">
+                                <h4>Contact information</h4>
+                            </div>
+                            <div class="row">
+                                <table class="table table-fixed table-borderless table-sm " th:object="${user}">
+                                    <tbody>
+                                        <tr>
+                                            <th  class="border-top-0">Company: </th>
+                                            <td class="border-top-0" th:text="*{company.name}"/>
+                                        </tr>
+                                        <tr>
+                                            <th>Address: </th>
+                                            <td th:text="*{company.address}"/>
+                                        </tr>
+                                        <tr>
+                                            <th>Phone: </th>
+                                            <td th:text="*{contact.phonenumber}"/>
+                                        </tr>
+                                        <tr>
+                                            <th>Email: </th>
+                                            <td th:text="*{email}"/>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-5 col-sm-12" th:insert="fragments/bookingForm"/>
+                <div class="col-md-5 offset-md-1 col-sm-12" th:insert="fragments/bookingForm"/>
             </div>
         </div>
     </div>
