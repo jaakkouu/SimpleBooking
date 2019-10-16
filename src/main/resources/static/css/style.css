@@ -34,3 +34,10 @@ body {
     color: red
 }
 
+.errorBlock {
+    color: white;
+    font-size: 12px;
+    padding: 10px 15px;
+    border: 1px solid crimson
+}
+

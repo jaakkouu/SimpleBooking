@@ -1,5 +1,6 @@
 <form th:action="@{/__${place.placeUrl.url}__/edit}" method="POST" th:object="${place}">
     <input type="hidden" th:field="*{id}">
+    <th:block th:insert="/fragments/errorBlock" />    
     <div class="form-group">
         <label for="address">Address</label>
         <input type="text" th:field="*{address}" class="form-control"  placeholder="Enter address of the place">

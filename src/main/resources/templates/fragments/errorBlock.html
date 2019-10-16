@@ -1,0 +1,6 @@
+<div class="errorBlock bg-danger border mb-4" th:if="${#fields.hasErrors('*')}">
+    <p>Errors: </p>
+    <ul>
+        <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+    </ul>
+</div>

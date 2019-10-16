@@ -54,7 +54,7 @@ public class PlaceController {
     @PostMapping("/{url}/edit")
     public String edit(@PathVariable String url, @ModelAttribute Place formPlace, @AuthenticationPrincipal UserDetails currentUser) {
         User user = userRepository.findUserByUsername(currentUser.getUsername());
-        Place place = placeRepository.findByUserIdAndId(user.getId(), formPlace.getId())
+        Place place = placeRepository.findByUserIdAndId(user.getId(), formPlace.getId());
         if(place != null) {
             place.setAddress(formPlace.getAddress());
             place.setLargeDescription(formPlace.getLargeDescription());

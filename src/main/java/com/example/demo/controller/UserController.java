@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import javax.validation.Valid;
+
 import com.example.demo.dao.UserRepository;
 import com.example.demo.model.Company;
 import com.example.demo.model.Contact;
@@ -10,8 +12,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,6 +82,27 @@ public class UserController {
         user.setContact(contact);
         userRepository.save(user);
         return "redirect:/profile";
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "/login";
+    }
+
+    @GetMapping("/register")
+    public String registerPage(Model model) {
+        model.addAttribute("user", new User());
+        return "/register";
+    }
+
+    @PostMapping("/register")
+    public String register(Model model, @Valid User user, BindingResult result) {
+        if(result.hasErrors()){
+            return "/register";
+        } 
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        userRepository.save(user);
+        return "/login";
     }
 
 }

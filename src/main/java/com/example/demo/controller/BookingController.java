@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import com.example.demo.dao.BookingRepository;
 import com.example.demo.dao.PlaceRepository;
@@ -20,6 +20,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,8 +74,11 @@ public class BookingController {
     }
 
     @PostMapping("/booking/add")
-    public String book(Model model, @ModelAttribute Booking booking, RedirectAttributes redirectAttributes) {
+    public String book(@Valid Booking booking, BindingResult result, RedirectAttributes redirectAttributes) {
         Place place = placeRepository.findById(booking.getPlace().getId()).get();
+        if(result.hasErrors()){
+            return "redirect:/" + place.getPlaceUrl().getUrl();
+        }
         Receipt receipt = new Receipt(booking.getName(), place.getName(), booking.getPhoneNumber(), booking.getReservationDate());
         booking.setReceiptNumber(receipt.getReceiptNumber());
         bookingRepository.save(booking);

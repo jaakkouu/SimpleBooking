@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -38,6 +39,7 @@ public class Booking {
     @Column(name="phonenumber", nullable=false)
     private String phoneNumber;
     
+    @NotNull(message="Please provide date for reservation")
     @Column(name="reservationDate", nullable=false)
     private Date reservationDate;
 
