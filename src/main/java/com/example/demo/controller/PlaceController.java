@@ -45,13 +45,23 @@ public class PlaceController {
         }
         model.addAttribute("user", userRepository.findById(place.getUser().getId()).get());
         model.addAttribute(editing ? "place" : "booking", editing ? place : booking);
+        model.addAttribute("title", place.getPlaceUrl().getUrl());
+        model.addAttribute("title", place.getName());
+        model.addAttribute("subtitle", place.getSmallDescription());
         return "/place/index";
     }
 
     @PostMapping("/{url}/edit")
-    public String edit(@PathVariable String url, Model model) {
-        model.addAttribute("place", placeRepository.findByPlaceUrl_Url(url));
-        return "/place/edit";
+    public String edit(@PathVariable String url, @ModelAttribute Place formPlace, @AuthenticationPrincipal UserDetails currentUser) {
+        User user = userRepository.findUserByUsername(currentUser.getUsername());
+        Place place = placeRepository.findByUserIdAndId(user.getId(), formPlace.getId())
+        if(place != null) {
+            place.setAddress(formPlace.getAddress());
+            place.setLargeDescription(formPlace.getLargeDescription());
+            place.setSmallDescription(formPlace.getSmallDescription());
+            placeRepository.save(place);
+        }
+        return "redirect:/"+ place.getPlaceUrl().getUrl();
     }
 
     @GetMapping("/place/add")

@@ -126,7 +126,7 @@ public class Place {
         return bookings;
     }
 
-    private void setBookings(List<Booking> bookings) {
+    public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
     }
 

@@ -26,6 +26,10 @@ public class Booking {
     @Column(name="id", nullable=false, updatable=false)
     private Long id;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="placeId")
+    private Place place;
+
     @NotEmpty(message="Please provide an name")
     @Column(name="name", nullable=false)
     private String name;
@@ -50,10 +54,6 @@ public class Booking {
 
     @Column(name="removedAt")
     private LocalDateTime removedAt;
-
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="placeId")
-    private Place place;
 
     public Long getId() {
         return id;
