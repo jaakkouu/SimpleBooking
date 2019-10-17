@@ -81,7 +81,7 @@ public class UserController {
         user.setCompany(company);
         user.setContact(contact);
         userRepository.save(user);
-        return "redirect:profile";
+        return "redirect:/profile";
     }
 
     @GetMapping("/login")

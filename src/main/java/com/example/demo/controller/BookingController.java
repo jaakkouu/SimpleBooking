@@ -82,7 +82,7 @@ public class BookingController {
         booking.setReceiptNumber(receipt.getReceiptNumber());
         bookingRepository.save(booking);
         redirectAttributes.addFlashAttribute("receipt", receipt);
-        return "redirect:booking/success";
+        return "redirect:/booking/success";
     }
 
 
