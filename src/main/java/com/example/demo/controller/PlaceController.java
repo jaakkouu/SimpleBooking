@@ -48,7 +48,7 @@ public class PlaceController {
         model.addAttribute("title", place.getPlaceUrl().getUrl());
         model.addAttribute("title", place.getName());
         model.addAttribute("subtitle", place.getSmallDescription());
-        return "/place/index";
+        return "place/index";
     }
 
     @PostMapping("/{url}/edit")
@@ -61,13 +61,13 @@ public class PlaceController {
             place.setSmallDescription(formPlace.getSmallDescription());
             placeRepository.save(place);
         }
-        return "redirect:/"+ place.getPlaceUrl().getUrl();
+        return "redirect:"+ place.getPlaceUrl().getUrl();
     }
 
     @GetMapping("/place/add")
     public String add(Model model) {
         model.addAttribute("place", new Place());
-        return "/place/add";
+        return "place/add";
     }
 
     @PostMapping("/place/add")
@@ -81,9 +81,9 @@ public class PlaceController {
         // check for existing place name
         if(placeUrlRepository.findByUrl(placeUrl.getUrl()) == null){
             placeRepository.save(place);
-            return "redirect:/places";
+            return "redirect:places";
         } else {
-            return "/place/add";
+            return "place/add";
         }
     }
 
@@ -94,7 +94,7 @@ public class PlaceController {
             Place place = placeRepository.findByUserIdAndId(user.getId(), placeId);
             placeRepository.delete(place);
         }
-        return "redirect:/places";
+        return "redirect:places";
     }
 
 }

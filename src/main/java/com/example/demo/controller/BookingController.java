@@ -69,7 +69,7 @@ public class BookingController {
 
     @GetMapping("/booking/success")
     public String bookingSuccess(Model model) {
-        return model.asMap().get("receipt") != null ? "/booking/success" : "redirect:/";
+        return model.asMap().get("receipt") != null ? "booking/success" : "redirect:/";
     }
 
     @PostMapping("/booking/add")
@@ -82,7 +82,7 @@ public class BookingController {
         booking.setReceiptNumber(receipt.getReceiptNumber());
         bookingRepository.save(booking);
         redirectAttributes.addFlashAttribute("receipt", receipt);
-        return "redirect:/booking/success";
+        return "redirect:booking/success";
     }
 
 

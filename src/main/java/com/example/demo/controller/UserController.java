@@ -68,7 +68,7 @@ public class UserController {
     public String index(Model model, @AuthenticationPrincipal UserDetails currentUser) {
         User user = userRepository.findUserByUsername(currentUser.getUsername());
         model.addAttribute("user", user);
-        return "/profile";
+        return "profile";
     }
 
     @PostMapping("/profile")
@@ -81,28 +81,28 @@ public class UserController {
         user.setCompany(company);
         user.setContact(contact);
         userRepository.save(user);
-        return "redirect:/profile";
+        return "redirect:profile";
     }
 
     @GetMapping("/login")
     public String loginPage() {
-        return "/login";
+        return "login";
     }
 
     @GetMapping("/register")
     public String registerPage(Model model) {
         model.addAttribute("user", new User());
-        return "/register";
+        return "register";
     }
 
     @PostMapping("/register")
     public String register(Model model, @Valid User user, BindingResult result) {
         if(result.hasErrors()){
-            return "/register";
+            return "register";
         } 
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
-        return "/login";
+        return "login";
     }
 
 }
