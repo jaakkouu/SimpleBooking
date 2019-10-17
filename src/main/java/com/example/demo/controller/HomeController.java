@@ -16,7 +16,7 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("places", placeRepository.findAll());
-        return "/index";
+        return "index";
     }
    
 }
