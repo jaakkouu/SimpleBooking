@@ -2,7 +2,7 @@
 <div class="container-fluid" th:object="${user}">
     <div class="container">
         <form action="#" th:action="@{/profile}" method="post">
-            <th:block th:insert="/fragments/errorBlock" />
+            <th:block th:insert="fragments/errorBlock" />
             <div class="row">
                 <div class="col">
                     <h4>Company</h4>

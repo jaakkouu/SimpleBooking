@@ -1,6 +1,6 @@
 <h4>Book Now</h4>
 <form action="#" th:action="@{/booking/add}" method="post">
-    <th:block th:insert="/fragments/errorBlock" />
+    <th:block th:insert="fragments/errorBlock" />
     <input type="hidden" th:field="*{place.id}" />
     <div class="form-group">
         <label for="name">Your name <sup>*</sup></label>
