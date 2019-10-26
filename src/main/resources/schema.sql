@@ -1,4 +1,4 @@
-CREATE TABLE users(
+CREATE TABLE IF NOT EXISTS users(
   id SERIAL PRIMARY KEY,
   username varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
@@ -9,14 +9,14 @@ CREATE TABLE users(
   removed_at timestamp
 ); 
 
-CREATE TABLE authorities(
+CREATE TABLE IF NOT EXISTS authorities(
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id),
   username varchar(255) NOT NULL,
   authority varchar(50) NOT NULL
 );
 
-CREATE TABLE places(
+CREATE TABLE IF NOT EXISTS places(
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id),
   name varchar(255) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE places(
   removed_at timestamp
 );
 
-CREATE TABLE place_urls(
+CREATE TABLE IF NOT EXISTS place_urls(
   id SERIAL PRIMARY KEY,
   place_id INTEGER REFERENCES places(id),
   url varchar(255) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE place_urls(
   removed_at timestamp
 );
 
-CREATE TABLE bookings(
+CREATE TABLE IF NOT EXISTS bookings(
   id SERIAL PRIMARY KEY,
   place_id INTEGER REFERENCES places(id),
   name varchar(255) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE bookings(
   removed_at timestamp
 );
 
-CREATE TABLE companies(
+CREATE TABLE IF NOT EXISTS companies(
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id),
   name varchar(255),
@@ -57,7 +57,7 @@ CREATE TABLE companies(
   modified_at timestamp
 );
 
-CREATE TABLE contacts(
+CREATE TABLE IF NOT EXISTS contacts(
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id),
   first_name varchar(255),
